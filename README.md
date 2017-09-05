@@ -1,3 +1,8 @@
+Next Steps:
+1. Implement Redux. Start with one piece of state: which TabItem is clicked.
+2. Set up action creator that dispatch action. Action returns type 'CHANGE_TAB' and payload of 'tabName'
+3. Style buttons to indicate currently selected
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

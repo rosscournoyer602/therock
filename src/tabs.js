@@ -3,7 +3,8 @@ const tabs = {
     Systems: "Systems",
     People: "People",
     Experience: "Experience",
-    Creative: "Creative"
+    Creative: "Creative",
+    Wizardry: "Wizardry"
 }
 
 export default tabs

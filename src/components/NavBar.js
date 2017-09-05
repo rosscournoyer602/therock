@@ -7,7 +7,7 @@ export default class extends Component {
               <Navbar>
                 <Navbar.Header>
                   <Navbar.Brand>
-                    <a href="#">The Rock</a>
+                    <a>The Rock</a>
                   </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
