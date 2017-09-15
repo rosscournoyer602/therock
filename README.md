@@ -1,5 +1,8 @@
 Next Steps:
 1. Style buttons to indicate currently selected (optional)
+2. Install React-Dev-Tools Extension
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
