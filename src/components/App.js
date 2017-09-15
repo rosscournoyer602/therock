@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar'
-import Dashboard from './Dashboard'
+import Dashboard from '../containers/Dashboard'
 
 export default class App extends Component {
 
