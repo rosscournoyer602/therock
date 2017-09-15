@@ -1,17 +1,38 @@
-import React from 'react'
-import TabItem from './TabItem'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import selectTab from '../actions/selectTab'
 
-const TabList = (props) => {
+class TabList extends Component {
+  constructor(props) {
+    super(props)
 
-    const tabItems = Object.values(props.tabs).map((tab) => {
-        return <TabItem tab={tab} key={tab} chooseTab={props.chooseTab} />
+    this.tabItems = Object.values(props.tabs).map((tab) => {
+      return <li 
+              key={tab} 
+              className="list-group-item"
+              onClick={() => this.props.selectTab(tab)}>
+              {tab}
+             </li>
     })
 
-    return (
-      <ul className="Col-md-3 list-group">
-        { tabItems }
-      </ul>
-    )
+  }
+
+    render() {
+      // {() => this.props.selectTab(tab)}
+      return (
+        <ul className="Col-md-3 list-group">
+          { this.tabItems }
+        </ul>
+      )
+    }
 }
 
-export default TabList
+function mapStateToProps(state) {
+  return { tabs: state.tabs }
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { selectTab }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabList)
