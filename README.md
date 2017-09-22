@@ -1,6 +1,6 @@
 Next Steps:
 1. Style buttons to indicate currently selected (optional)
-2. Install React-Dev-Tools Extension
+2. Dispatch the GET_ENTRIES action from somewhere
 
 
 
