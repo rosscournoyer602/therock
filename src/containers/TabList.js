@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import selectTab from '../actions/selectTab'
 
+
 class TabList extends Component {
   constructor(props) {
     super(props)
@@ -15,11 +16,9 @@ class TabList extends Component {
               {tab}
              </li>
     })
-
   }
 
     render() {
-      // {() => this.props.selectTab(tab)}
       return (
         <ul className="Col-md-3 list-group">
           { this.tabItems }

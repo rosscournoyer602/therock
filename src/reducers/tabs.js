@@ -1,12 +1,12 @@
 export default function(){
     return (
         {
-            Community: "Community",
-            Systems: "Systems",
-            People: "People",
-            Experience: "Experience",
-            Creative: "Creative",
-            Wizardry: "Wizardry"
+            community: "Community",
+            systems: "Systems",
+            people: "People",
+            experience: "Experience",
+            brand: "Brand",
+            wizardry: "Wizardry"
         }
     )
 }

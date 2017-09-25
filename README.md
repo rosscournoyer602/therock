@@ -1,11 +1,7 @@
 Next Steps:
-1. Style buttons to indicate currently selected (optional)
-2. Dispatch the GET_ENTRIES action from somewhere
-
-
-
-
-
+1. Parse API calls into useable data
+2. Need solution for multiple content types for each team.
+   Determine content types. Put an example of each.
 
 
 

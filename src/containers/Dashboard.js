@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import {Grid, Row, Col} from 'react-bootstrap'
 import TabList from './TabList'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import getEntries from '../actions/getEntries'
 
 class Dashboard extends Component {
-  
+  constructor(props) {
+    super(props)
+  }
+
   render(){
     return (
         <div>
@@ -16,6 +21,8 @@ class Dashboard extends Component {
               <Col md={9}>
                 <div>
                   <h1>{this.props.tabSelected}</h1>
+                  <p>{JSON.stringify(this.props.contentDisplayed)}</p>
+                  {/* Figure out how content will be displayed */}
                 </div>
               </Col>
             </Row>
@@ -27,8 +34,13 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-      tabSelected: state.tabSelected
+      tabSelected: state.tabSelected,
+      contentDisplayed: state.contentDisplayed
   }
 }
 
-export default connect(mapStateToProps)(Dashboard)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { getEntries }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
