@@ -8,10 +8,6 @@ const client = createClient({
     accessToken: creds.delieryToken
 })
 
-export function* helloSaga() {
-    console.log('The Rock has Sagas installed')
-}
-
 export function* getEntriesSaga(action) {
     const searchObject = {
         'content_type': 'process',
