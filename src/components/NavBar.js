@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Menu } from 'antd';
+import 'antd/dist/antd.css'
 
 export default class extends Component {
   render() {
     return (
-      <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a>The Rock</a>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav>
-          <NavItem eventKey={1} href="#">Create New Knowledge</NavItem>
-          <NavItem eventKey={2} href="#">How to Use The Rock</NavItem>
-          <NavItem eventKey={2} href="#">About</NavItem>
-        </Nav>
-      </Navbar>
+      <Menu theme="dark" mode="horizontal">
+          <Menu.Item>
+            The Rock
+          </Menu.Item>
+          <Menu.Item>
+            Add New Knowledge
+          </Menu.Item>
+          <Menu.Item>
+            About
+          </Menu.Item>
+      </Menu>
     )
   }
 }

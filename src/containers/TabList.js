@@ -2,36 +2,57 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import selectTab from '../actions/selectTab'
-
+import getEntries from '../actions/getEntries'
+import { Menu } from 'antd'
+import 'antd/dist/antd.css'
+const SubMenu = Menu.SubMenu
 
 class TabList extends Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      openKeys: []
+    }
     this.tabItems = Object.values(props.tabs).map((tab) => {
-      return <li 
+      return (
+            <SubMenu
               key={tab} 
-              className="list-group-item"
-              onClick={() => this.props.selectTab(tab)}>
-              {tab}
-             </li>
+              onTitleClick={() => this.props.selectTab(tab)}
+              title={tab}>
+                <Menu.Item key={tab + '1'}>Process Guides</Menu.Item>
+                <Menu.Item key={tab + '2'}>Walkthroughs</Menu.Item>
+            </SubMenu>
+      )
     })
+    this.rootTabItems = Object.values(props.tabs)
   }
 
+    onOpenChange = (openKeys) => {
+      const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
+      this.setState(
+        {openKeys: latestOpenKey ? [latestOpenKey] : []}
+      )
+    }
     render() {
       return (
-        <ul className="Col-md-3 list-group">
+        <Menu 
+          mode="inline" 
+          theme="dark"
+          width={{ width: 240 }}
+          openKeys={this.state.openKeys}
+          onOpenChange={this.onOpenChange}
+          onClick={() => this.props.getEntries(this.props.tabSelected)}>
           { this.tabItems }
-        </ul>
+        </Menu>
       )
     }
 }
 
 function mapStateToProps(state) {
-  return { tabs: state.tabs }
+  return { tabs: state.tabs, tabSelected: state.tabSelected}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { selectTab }, dispatch)
+  return bindActionCreators( { selectTab, getEntries }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabList)

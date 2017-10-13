@@ -1,8 +1,8 @@
-import { DISPLAY_CONTENT } from '../actions/actionTypes'
+import { DISPLAY_ENTRIES } from '../actions/actionTypes'
 
-export default function contentDisplayed(state='Your content will be displayed here', action) {
+export default function contentDisplayed(state=[], action) {
     switch(action.type) {
-        case DISPLAY_CONTENT:
+        case DISPLAY_ENTRIES:
             console.log('Reducer updated content: ' + JSON.stringify(action.payload))
             return action.payload
         default:

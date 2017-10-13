@@ -1,10 +1,6 @@
 Next Steps:
-1. Parse API calls into useable data
-2. Need solution for multiple content types for each team.
-   Determine content types. Put an example of each.
-3. Import and make use of style library antd or material ui
-
-
+1. Make Dashboard multi-purpose (i.e. render list of entries or content of a clicked entry)
+2. Make EntryCards display content on click
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
