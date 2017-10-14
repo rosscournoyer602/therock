@@ -1,3 +1,5 @@
 export const SELECT_TAB = 'SELECT_TAB'
 export const GET_ENTRIES = 'GET_ENTRIES'
+export const GET_ENTRY = 'GET_ENTRY'
 export const DISPLAY_ENTRIES = 'DISPLAY_ENTRIES'
+export const DISPLAY_ENTRY = 'DISPLAY_ENTRY'

@@ -9,5 +9,3 @@ const getEntries = (tabName) => {
 }
 
 export default getEntries
-//field id "team"
-// GET spaces/{space_id}/entries?access_token={access_token}&content_type={content_type}&fields.{field_id}={value}
