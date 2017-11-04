@@ -17,7 +17,7 @@ export function* getProcessEntriesSaga(action) {
         'content_type': 'process',
         'fields.team': action.payload
     }
-    //console.log(searchObject)
+    
     const entries = yield client.getEntries(searchObject)
     const entryTitles = entries.items.map((entry) => {
         return {

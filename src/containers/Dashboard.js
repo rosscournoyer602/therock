@@ -4,8 +4,11 @@ import { connect } from 'react-redux'
 import getEntry from '../actions/getEntry'
 import EntryCard from '../components/EntryCard'
 import style from './style.css'
+import { Layout } from 'antd'
+const { Header, Content } = Layout
 
 class Dashboard extends Component {
+  
   render(){
     const entries = this.props.contentDisplayed.map((item) => {
       return (
@@ -15,20 +18,29 @@ class Dashboard extends Component {
       )
     })
     return (
-        <div>
-          <h1>{this.props.tabSelected}</h1>
-          <ul>
-            {entries}
-          </ul>
-        </div>
+      <Layout>
+        <Layout style={{background: 'white'}}>
+          <Header style={{background: 'white', margin: 'auto'}}>
+            <h1>{this.props.tabSelected}</h1>
+          </Header>
+        </Layout>
+        <Layout style={{background: 'white'}}>
+          <Content style={{ margin: 'auto'}}>
+            <ul>
+              {entries}
+            </ul>
+          </Content>
+        </Layout>
+      </Layout>
+
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-      tabSelected: state.tabSelected,
-      contentDisplayed: state.contentDisplayed
+      contentDisplayed: state.contentDisplayed,
+      tabSelected: state.tabSelected
   }
 }
 

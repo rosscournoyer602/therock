@@ -1,26 +1,40 @@
 import React, { Component } from 'react'
 import NavBar from './NavBar'
 import TabList from '../containers/TabList'
-import { Row, Col } from 'antd'
 import Dashboard from '../containers/Dashboard'
+import { Layout, Menu, Breadcrumb } from 'antd';
+const { Header, Content, Sider } = Layout;
 
 export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <Row>
-            <NavBar fixedTop="true" fluid="true" />
-        </Row>
-        <Row gutter={25}>
-          <Col span={4}>
+      <Layout style={{ height: '800px' }}>
+        <Header className="Header">
+          <div className="Logo" />
+          <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
+            <Menu.Item>
+              The Rock
+            </Menu.Item>
+            <Menu.Item>
+              Add New Knowledge
+            </Menu.Item>
+            <Menu.Item>
+              About
+            </Menu.Item>
+          </Menu> 
+        </Header>
+        <Layout>
+          <Sider width={200} style={{ background: '#fff' }}>
             <TabList />
-          </Col>
-          <Col span={18}>
-            <Dashboard />
-          </Col>
-        </Row>
-      </div>
+          </Sider>
+          <Layout style={{ padding: '24px 24px 24px' }}>
+            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+              <Dashboard />
+            </Content>
+          </Layout>
+        </Layout>
+      </Layout>
     )
   }
 }

@@ -38,7 +38,7 @@ class TabList extends Component {
         <Menu 
           mode="inline" 
           theme="dark"
-          width={{ width: 240 }}
+          style ={{height: '100%'}}
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
           onClick={() => this.props.getEntries(this.props.tabSelected)}>

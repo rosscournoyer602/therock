@@ -3,11 +3,9 @@ import { Card } from 'antd'
 
 function entryCard(props) {
     return (
-        <div style={{ background: '#ECECEC', padding: '10px', width: '600px'}}>
-          <Card title={props.title} bordered={true}>
+          <Card title={props.title} bordered={true} style={{ width: '100%', margin: 'auto', position: 'relative'  }}>
             <p>{props.purpose}</p>
           </Card>
-        </div>
     )
 }
 
