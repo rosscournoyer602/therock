@@ -7,8 +7,7 @@ import style from './style.css'
 import { Layout } from 'antd'
 const { Header, Content } = Layout
 
-class Dashboard extends Component {
-  
+class Dashboard extends Component { 
   render(){
     const entries = this.props.contentDisplayed.map((item) => {
       return (

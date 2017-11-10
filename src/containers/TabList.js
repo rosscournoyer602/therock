@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import selectTab from '../actions/selectTab'
 import getEntries from '../actions/getEntries'
+import clearDisplay from '../actions/clearDisplay'
 import { Menu } from 'antd'
 import 'antd/dist/antd.css'
 const SubMenu = Menu.SubMenu
@@ -28,6 +29,7 @@ class TabList extends Component {
   }
 
     onOpenChange = (openKeys) => {
+      this.props.clearDisplay()
       const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
       this.setState(
         {openKeys: latestOpenKey ? [latestOpenKey] : []}
@@ -52,7 +54,7 @@ function mapStateToProps(state) {
   return { tabs: state.tabs, tabSelected: state.tabSelected}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { selectTab, getEntries }, dispatch)
+  return bindActionCreators( { selectTab, getEntries, clearDisplay }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabList)

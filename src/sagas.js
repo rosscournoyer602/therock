@@ -23,7 +23,8 @@ export function* getProcessEntriesSaga(action) {
         return {
             title: entry.fields.title,
             purpose: entry.fields.purpose,
-            id: entry.sys.id
+            id: entry.sys.id,
+            team: entry.fields.team
         }
     })
     yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles })
