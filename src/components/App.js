@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import NavBar from './NavBar'
 import TabList from '../containers/TabList'
 import Dashboard from '../containers/Dashboard'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 const { Header, Content, Sider } = Layout;
 
 export default class App extends Component {

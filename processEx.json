@@ -1,0 +1,185 @@
+{
+    "name": "Process",
+    "description": "A replicable set of instructions for complete a routine task",
+    "displayField": "title",
+    "fields": [
+      {
+        "id": "title",
+        "name": "Title",
+        "type": "Symbol",
+        "localized": false,
+        "required": true,
+        "validations": [
+          {
+            "unique": true
+          }
+        ],
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "purpose",
+        "name": "Purpose",
+        "type": "Text",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "responsibleIndividuals",
+        "name": "Responsible Individuals",
+        "type": "Array",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "handoffs",
+        "name": "Handoffs",
+        "type": "Array",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "relevantDocuments",
+        "name": "RelevantDocuments",
+        "type": "Array",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Link",
+          "validations": [],
+          "linkType": "Asset"
+        }
+      },
+      {
+        "id": "completionChecklist",
+        "name": "Completion Checklist",
+        "type": "Array",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "completionDescription",
+        "name": "completionDescription",
+        "type": "Text",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "measuresOfSuccess",
+        "name": "MeasuresOfSuccess",
+        "type": "Array",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "faq",
+        "name": "FAQ",
+        "type": "Array",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "team",
+        "name": "Team",
+        "type": "Symbol",
+        "localized": false,
+        "required": true,
+        "validations": [
+          {
+            "in": [
+              "Community",
+              "Systems",
+              "Experience",
+              "Brand",
+              "People"
+            ]
+          }
+        ],
+        "disabled": false,
+        "omitted": false
+      }
+    ],
+    "sys": {
+      "space": {
+        "sys": {
+          "type": "Link",
+          "linkType": "Space",
+          "id": "dbqktrvlm9hp"
+        }
+      },
+      "id": "process",
+      "type": "ContentType",
+      "createdAt": "2017-07-20T05:22:03.789Z",
+      "updatedAt": "2017-10-14T07:18:31.026Z",
+      "createdBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "38vWI5YdJW3Q3j6WizQOW2"
+        }
+      },
+      "updatedBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "38vWI5YdJW3Q3j6WizQOW2"
+        }
+      },
+      "publishedCounter": 5,
+      "version": 10,
+      "publishedBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "38vWI5YdJW3Q3j6WizQOW2"
+        }
+      },
+      "publishedVersion": 9,
+      "firstPublishedAt": "2017-07-20T05:22:04.784Z",
+      "publishedAt": "2017-10-14T07:18:31.026Z"
+    }
+  }

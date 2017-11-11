@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^2.13.6",
+    "antd": "^2.13.9",
     "axios": "^0.16.2",
     "contentful": "^4.6.4",
     "react": "^15.6.2",
-    "react-bootstrap": "^0.31.3",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.2",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux-saga": "^0.15.6"
   },

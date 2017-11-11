@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import selectTab from '../actions/selectTab'
 import getEntries from '../actions/getEntries'
 import clearDisplay from '../actions/clearDisplay'
+import { Link } from 'react-router-dom';
 import { Menu } from 'antd'
 import 'antd/dist/antd.css'
 const SubMenu = Menu.SubMenu
@@ -20,7 +21,7 @@ class TabList extends Component {
               key={tab} 
               onTitleClick={() => this.props.selectTab(tab)}
               title={tab}>
-                <Menu.Item key={tab + '1'}>Process Guides</Menu.Item>
+                <Menu.Item key={tab + '1'}><Link to="/entries">Process Guides</Link></Menu.Item>
                 <Menu.Item key={tab + '2'}>Walkthroughs</Menu.Item>
             </SubMenu>
       )
