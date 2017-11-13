@@ -22,7 +22,7 @@ class TabList extends Component {
               onTitleClick={() => this.props.selectTab(tab)}
               title={tab}>
                 <Menu.Item key={tab + '1'}><Link to="/entries">Process Guides</Link></Menu.Item>
-                <Menu.Item key={tab + '2'}>Walkthroughs</Menu.Item>
+                <Menu.Item key={tab + '2'}><Link to="/entries">Walkthroughs</Link></Menu.Item>
             </SubMenu>
       )
     })

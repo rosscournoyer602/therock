@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import getEntry from '../actions/getEntry'
 import Entries from './Entries'
+import ProcessGuide from './ProcessGuide'
 import { Layout } from 'antd'
+import { withRouter } from 'react-router'
 const { Header, Content } = Layout
 
 class Dashboard extends Component { 
@@ -19,7 +20,8 @@ class Dashboard extends Component {
           <Layout style={{background: 'white'}}>
             <Content style={{ margin: 'auto'}}>
               <Switch>
-                <Route path="/entries" component={Entries} />>
+                <Route path="/entry" component={ProcessGuide} />
+                <Route path="/entries" component={Entries} />
               </Switch>
             </Content>
           </Layout>
@@ -35,8 +37,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getEntry }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default withRouter(connect(mapStateToProps)(Dashboard))

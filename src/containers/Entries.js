@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import EntryCard from '../components/EntryCard'
+import getEntry from '../actions/getEntry'
 import style from './style.css'
 
 class Entries extends Component {
@@ -26,4 +28,8 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Entries)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { getEntry }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Entries)

@@ -1,6 +1,6 @@
 import { SELECT_TAB } from '../actions/actionTypes'
 
-export default function tabSelected(state='Select a tab', action) {
+export default function tabSelected(state=[], action) {
     switch(action.type) {
         case SELECT_TAB:
             console.log('Reducer changed selected tab: ' + action.payload)
