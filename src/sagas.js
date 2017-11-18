@@ -33,6 +33,10 @@ export function* getProcessEntriesSaga(action) {
     //start parsing what coems back into titles only
 }
 
+export function* searchEntriesSaga(action) {
+    client.getEntries({query: action.payload})
+}
+
 //listen for actions and call sagas
 export function* watchGetProcessEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getProcessEntrySaga)
@@ -40,6 +44,10 @@ export function* watchGetProcessEntrySaga() {
 
 export function* watchGetProcessEntriesSaga() {
     yield takeEvery(actionTypes.GET_ENTRIES, getProcessEntriesSaga)
+}
+
+export function* watchSearchEntriesSaga() {
+    yield takeEvery(actionTypes.SEARCH_ENTRIES)
 }
 
 export default function* rootSaga() {

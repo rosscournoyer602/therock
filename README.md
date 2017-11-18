@@ -2,7 +2,7 @@ Description: A Knowledge Base site that that allows users to read/create/update/
 
 Next Steps:
 1. Further refine routing between /,/entries,/entry - Bonus: Route includes specific post/team/content as well
-2. Finalize look and spacing of Navbar
+2. Make Dashboard smart again
 3. Show actual entries
 
 

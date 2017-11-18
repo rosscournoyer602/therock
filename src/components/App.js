@@ -11,12 +11,11 @@ export default class App extends Component {
   render() {
     return (
       <Layout style={{ height: '800px' }}>
-        <Header className="Header">
-          <div className="Logo" />
+        <Header className="Header" style={{padding:0}}>
           <Navbar/>
         </Header>
         <Layout>
-          <Sider width={200} style={{ background: '#fff' }}>
+          <Sider width={224} style={{ background: '#fff' }}>
             <TabList />
           </Sider>
           <Layout style={{ padding: '24px 24px 24px' }}>
