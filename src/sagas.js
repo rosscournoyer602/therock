@@ -8,10 +8,12 @@ const client = createClient({
     accessToken: creds.deliveryToken
 })
 
+//when the user click an entry, go get it from Contentful
 export function* getProcessEntrySaga(action) {
     const entry = yield client.getEntry(action.payload)
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entry})
 }
+
 export function* getProcessEntriesSaga(action) {
     const searchObject = {
         'content_type': 'process',
@@ -31,9 +33,11 @@ export function* getProcessEntriesSaga(action) {
     //start parsing what coems back into titles only
 }
 
+//listen for actions and call sagas
 export function* watchGetProcessEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getProcessEntrySaga)
 }
+
 export function* watchGetProcessEntriesSaga() {
     yield takeEvery(actionTypes.GET_ENTRIES, getProcessEntriesSaga)
 }

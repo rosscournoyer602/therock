@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card } from 'antd'
 import { Link } from 'react-router-dom'
-import getEntry from '../actions/getEntry'
 
 function entryCard(props) {
     return (

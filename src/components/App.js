@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import TabList from '../containers/TabList'
-import Dashboard from '../containers/Dashboard'
-import { Layout, Menu } from 'antd';
+import Dashboard from './Dashboard'
+import Navbar from './Navbar'
+import Searchbar from '../containers/Searchbar'
+import { Layout, Input } from 'antd';
 const { Header, Content, Sider } = Layout;
 
 export default class App extends Component {
@@ -11,17 +13,7 @@ export default class App extends Component {
       <Layout style={{ height: '800px' }}>
         <Header className="Header">
           <div className="Logo" />
-          <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
-            <Menu.Item>
-              The Rock
-            </Menu.Item>
-            <Menu.Item>
-              Add New Knowledge
-            </Menu.Item>
-            <Menu.Item>
-              About
-            </Menu.Item>
-          </Menu> 
+          <Navbar/>
         </Header>
         <Layout>
           <Sider width={200} style={{ background: '#fff' }}>

@@ -7,7 +7,7 @@ import style from './style.css'
 
 class Entries extends Component {
   render(){
-    const entries = this.props.contentDisplayed.map((item) => {
+    const entries = this.props.entriesDisplayed.map((item) => {
       return (
         <li style={style} key={item.title} onClick={() => this.props.getEntry(item.id)}>
           <EntryCard title={item.title} purpose={item.purpose} />
@@ -24,7 +24,7 @@ class Entries extends Component {
 
 function mapStateToProps(state) {
   return {
-      contentDisplayed: state.contentDisplayed,
+      entriesDisplayed: state.entriesDisplayed
   }
 }
 
