@@ -9,7 +9,7 @@ export default class Navbar extends Component {
       <Row align="middle">
         <Col span={6}>
           <div> 
-            <img src={require("../therock.png")}/>
+            <Link to="/"><img src={require("../therock.png")}/></Link>
           </div>
         </Col>
         <Col span={6} offset={6}>
