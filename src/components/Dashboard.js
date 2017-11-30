@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux'
 import Entries from '../containers/Entries'
 import ProcessGuide from '../containers/ProcessGuide'
 import { Layout } from 'antd'

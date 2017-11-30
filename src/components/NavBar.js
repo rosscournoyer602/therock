@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Form, Input, Row, Col } from 'antd';
+import { Menu, Row, Col } from 'antd';
 import { Link } from 'react-router-dom'
 import Searchbar from '../containers/Searchbar'
 
@@ -9,7 +9,7 @@ export default class Navbar extends Component {
       <Row align="middle">
         <Col span={6}>
           <div> 
-            <Link to="/"><img src={require("../therock.png")}/></Link>
+            <Link to="/"><img src={require("../therock.png")} alt="" /></Link>
           </div>
         </Col>
         <Col span={6} offset={6}>

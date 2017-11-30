@@ -34,7 +34,10 @@ export function* getProcessEntriesSaga(action) {
 }
 
 export function* searchEntriesSaga(action) {
-    client.getEntries({query: action.payload})
+    console.log('searchEntriesSaga got called')
+    const searchResults = yield client.getEntries({query: action.payload})
+    console.log(searchResults)
+    yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchResults})
 }
 
 //listen for actions and call sagas
@@ -47,12 +50,13 @@ export function* watchGetProcessEntriesSaga() {
 }
 
 export function* watchSearchEntriesSaga() {
-    yield takeEvery(actionTypes.SEARCH_ENTRIES)
+    yield takeEvery(actionTypes.SEARCH_ENTRIES, searchEntriesSaga)
 }
 
 export default function* rootSaga() {
     yield all([
         watchGetProcessEntriesSaga(),
-        watchGetProcessEntrySaga()
+        watchGetProcessEntrySaga(),
+        watchSearchEntriesSaga()
     ])
 }

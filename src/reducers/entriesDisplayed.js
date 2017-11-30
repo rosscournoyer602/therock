@@ -1,6 +1,6 @@
 //reducer to handle which team's list of entries is currently selected.
 
-import { DISPLAY_ENTRIES, DISPLAY_ENTRY, CLEAR_DISPLAY } from '../actions/actionTypes'
+import { DISPLAY_ENTRIES, CLEAR_DISPLAY } from '../actions/actionTypes'
 
 export default function entriesDisplayed(state=[], action) {
     switch(action.type) {

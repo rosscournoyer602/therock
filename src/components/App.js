@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import TabList from '../containers/TabList'
 import Dashboard from './Dashboard'
 import Navbar from './Navbar'
-import Searchbar from '../containers/Searchbar'
-import { Layout, Input } from 'antd';
+import { Layout } from 'antd';
 const { Header, Content, Sider } = Layout;
 
 export default class App extends Component {

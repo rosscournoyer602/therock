@@ -1,4 +1,4 @@
-import { DISPLAY_ENTRIES, DISPLAY_ENTRY, CLEAR_DISPLAY } from '../actions/actionTypes'
+import { DISPLAY_ENTRY, CLEAR_DISPLAY } from '../actions/actionTypes'
 
 export default function contentDisplayed(state=[], action) {
     switch(action.type) {
