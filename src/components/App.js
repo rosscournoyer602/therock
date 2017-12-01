@@ -3,9 +3,10 @@ import TabList from '../containers/TabList'
 import Dashboard from './Dashboard'
 import Navbar from './Navbar'
 import { Layout } from 'antd';
+import { withRouter } from 'react-router-dom';
 const { Header, Content, Sider } = Layout;
 
-export default class App extends Component {
+class App extends Component {
 
   render() {
     return (
@@ -27,3 +28,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default withRouter(App)

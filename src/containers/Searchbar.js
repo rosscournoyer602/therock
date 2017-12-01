@@ -7,8 +7,13 @@ const Search = Input.Search;
 
 class Searchbar extends Component {
     render() {
+        const style = {
+            margin: 'auto 24px auto 32px'
+        }
         return (
-            <Search onSearch={value => this.props.searchEntries(value)}/>
+          <div style={style}>
+            <Search onSearch={(value) => this.props.searchEntries(value)}/>
+          </div>
         )
     }
 }

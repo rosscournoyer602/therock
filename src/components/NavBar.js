@@ -4,16 +4,30 @@ import { Link } from 'react-router-dom'
 import Searchbar from '../containers/Searchbar'
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedKeys: []
+    }
+
+  }
+
   render() {
+    const style = {
+      margin: 'auto',
+      position: 'fixed',
+      lineHeight: '64px'
+    }
     return (
-      <Row align="middle">
-        <Col span={6}>
+      <Row align="middle" justify="end">
+        <Col span={14}>
           <div> 
             <Link to="/"><img src={require("../therock.png")} alt="" /></Link>
           </div>
         </Col>
-        <Col span={6} offset={6}>
-          <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px', align: "left" }}>
+        <Col span={4}>
+          <Menu selectable={false} theme="dark" mode="horizontal" style={style}>
             <Menu.Item>
               <Link to="/add">
               Create
@@ -26,7 +40,7 @@ export default class Navbar extends Component {
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={6} pull={2}>
+        <Col span={6}>
           <Searchbar />
         </Col>
       </Row>
