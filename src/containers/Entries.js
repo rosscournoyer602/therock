@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import EntryCard from '../components/EntryCard'
 import getEntry from '../actions/getEntry'
 import style from './style.css'
+import tabSelected from '../reducers/tabSelected';
 
 class Entries extends Component {
   render(){
@@ -15,16 +16,17 @@ class Entries extends Component {
       )
     })
     return (
-      <ul>
-        {entries}
-      </ul>
+        <ul>
+          {entries}
+        </ul>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-      entriesDisplayed: state.entriesDisplayed
+      entriesDisplayed: state.entriesDisplayed,
+      tabSelected: state.tabSelected
   }
 }
 

@@ -34,10 +34,16 @@ export function* getProcessEntriesSaga(action) {
 }
 
 export function* searchEntriesSaga(action) {
-    console.log('searchEntriesSaga got called')
     const searchResults = yield client.getEntries({query: action.payload})
-    console.log(searchResults)
-    yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchResults})
+    const searchTitles = searchResults.items.map((entry) => {
+        return {
+            title: entry.fields.title,
+            purpose: entry.fields.purpose,
+            id: entry.sys.id,
+            team: entry.fields.team
+        }
+    })
+    yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles})
 }
 
 //listen for actions and call sagas
