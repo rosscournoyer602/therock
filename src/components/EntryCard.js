@@ -6,7 +6,9 @@ function entryCard(props) {
     return (
       <div>
         <Link to="/entry">
-          <Card title={props.title} bordered={true} style={{ width: '100%', margin: 'auto'}}>
+          <Card title={`${props.title} (${props.team} Team)`} 
+                bordered={true} 
+                style={{ width: '100%', margin: 'auto'}}>
               <p>{props.purpose}</p>
           </Card>
         </Link>

@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { withRouter } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom';
 import Entries from '../containers/Entries'
 import ProcessGuide from '../containers/ProcessGuide'
@@ -30,10 +27,4 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-      tabSelected: state.tabSelected
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(Dashboard))
+export default (Dashboard)
