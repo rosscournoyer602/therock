@@ -11,7 +11,18 @@ const client = createClient({
 //when the user click an entry, go get it from Contentful
 export function* getProcessEntrySaga(action) {
     const entry = yield client.getEntry(action.payload)
-    yield put({type: actionTypes.DISPLAY_ENTRY, payload: entry})
+    const entryFields = {
+        title: entry.fields.title,
+        purpose: entry.fields.purpose,
+        responsibleIndividuals: entry.fields.responsibleIndividuals,
+        relevantDocuments: entry.fields.relevantDocuments,
+        handoffs: entry.fields.handoffs,
+        completionDescription: entry.fields.completionDescription,
+        measuresOfSuccess: entry.fields.measuresOfSuccess,
+        faq: entry.fields.faq,
+        team: entry.fields.team
+    }
+    yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
 export function* getProcessEntriesSaga(action) {

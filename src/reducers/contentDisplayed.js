@@ -1,6 +1,6 @@
 import { DISPLAY_ENTRY, CLEAR_DISPLAY } from '../actions/actionTypes'
 
-export default function contentDisplayed(state=[], action) {
+export default function contentDisplayed(state={}, action) {
     switch(action.type) {
         case DISPLAY_ENTRY:
             console.log('Reducer updated content: ' + JSON.stringify(action.payload))

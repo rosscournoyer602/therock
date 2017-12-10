@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TabList from '../containers/TabList'
-import Dashboard from './Dashboard'
+import Dashboard from '../containers/Dashboard'
 import Navbar from './Navbar'
 import { Layout } from 'antd';
 import { Router } from 'react-router'

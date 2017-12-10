@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import EntryCard from '../components/EntryCard'
 import getEntry from '../actions/getEntry'
 import style from './style.css'
-import tabSelected from '../reducers/tabSelected';
 
 class Entries extends Component {
   render(){

@@ -7,13 +7,12 @@ import searchEntries from '../actions/searchEntries'
 const Search = Input.Search
 
 class Searchbar extends Component {
-    constructor(props) {
-        super(props)
-    }
+
     searchAndReset(value) {
         this.props.searchEntries(value)
         this.props.history.push(`/search/${value}`)
     }
+    
     render() {
         const style = {
             margin: 'auto 24px auto 32px'
