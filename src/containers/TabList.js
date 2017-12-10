@@ -9,6 +9,7 @@ import { Menu } from 'antd'
 import 'antd/dist/antd.css'
 const SubMenu = Menu.SubMenu
 
+//Renders side Menu and the list of teams
 class TabList extends Component {
   constructor(props) {
     super(props)

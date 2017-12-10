@@ -27,11 +27,13 @@ export function* getProcessEntrySaga(action) {
 
 export function* getProcessEntriesSaga(action) {
     const searchObject = {
+        //[ISSUE] find a way to get all content types or distinguish between them
         'content_type': 'process',
         'fields.team': action.payload
     }
     
     const entries = yield client.getEntries(searchObject)
+    //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
         return {
             title: entry.fields.title,
@@ -41,11 +43,11 @@ export function* getProcessEntriesSaga(action) {
         }
     })
     yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles })
-    //start parsing what coems back into titles only
 }
 
 export function* searchEntriesSaga(action) {
     const searchResults = yield client.getEntries({query: action.payload})
+    //[ISSUE] possibly redundant, could use getProcessEntries saga
     const searchTitles = searchResults.items.map((entry) => {
         return {
             title: entry.fields.title,

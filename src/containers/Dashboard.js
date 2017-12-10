@@ -7,6 +7,7 @@ import ProcessGuide from '../components/ProcessGuide'
 import { Layout } from 'antd'
 const { Content } = Layout
 
+//Generic display port for all data
 class Dashboard extends Component { 
   render(){
     const style = {
@@ -22,7 +23,7 @@ class Dashboard extends Component {
                 <Route 
                   path="/entry" 
                   render={() => <ProcessGuide title={this.props.contentDisplayed.title}/>}>
-                  {/* Need to render the rest of the fields here I guess? */}
+                  {/* Need to render the rest of the fields here */}
                 </Route>
               </Switch>
             </Content>

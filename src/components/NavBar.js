@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Menu, Row, Col } from 'antd';
 import { Link } from 'react-router-dom'
 import Searchbar from '../containers/Searchbar'
+
+//Top Navbar
 export default class Navbar extends Component {
   constructor(props) {
     super(props)
