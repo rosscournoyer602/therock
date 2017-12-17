@@ -45,7 +45,7 @@ class TabList extends Component {
           style ={{height: '100%'}}
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
-          onClick={() => this.props.getEntries(this.props.tabSelected)}>
+          onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
           { this.tabItems }
         </Menu>
       )

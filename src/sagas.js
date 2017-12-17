@@ -20,18 +20,22 @@ export function* getProcessEntrySaga(action) {
         completionDescription: entry.fields.completionDescription,
         measuresOfSuccess: entry.fields.measuresOfSuccess,
         faq: entry.fields.faq,
-        team: entry.fields.team
+        team: entry.fields.team,
+        type: entry.sys.contentType.sys.id
     }
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
 export function* getProcessEntriesSaga(action) {
+    let contentType = ''
+    console.log(typeof action.contentType)
+    if (action.contentType.includes('1')) { contentType = 'process' }
+    if (action.contentType.includes('2')) { contentType = 'walkthrough' }
+
     const searchObject = {
-        //[ISSUE] find a way to get all content types or distinguish between them
-        'content_type': 'process',
-        'fields.team': action.payload
+        'content_type': contentType,
+        'fields.team': action.tabName
     }
-    
     const entries = yield client.getEntries(searchObject)
     //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
@@ -39,7 +43,8 @@ export function* getProcessEntriesSaga(action) {
             title: entry.fields.title,
             purpose: entry.fields.purpose,
             id: entry.sys.id,
-            team: entry.fields.team
+            team: entry.fields.team,
+            type: entry.sys.contentType.sys.id
         }
     })
     yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles })

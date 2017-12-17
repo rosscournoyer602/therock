@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
+import Walkthrough from '../components/Walkthrough'
 import { Layout } from 'antd'
 const { Content } = Layout
 
@@ -21,8 +22,13 @@ class Dashboard extends Component {
                 <Route path="/search/:entry" component={Entries} />
                 <Route path="/entries" component={Entries} />
                 <Route 
-                  path="/entry" 
+                  path="/entry/process/:entry" 
                   render={() => <ProcessGuide title={this.props.contentDisplayed.title}/>}>
+                  {/* Need to render the rest of the fields here */}
+                </Route>
+                <Route 
+                  path="/entry/walkthrough/:entry" 
+                  render={() => <Walkthrough title={this.props.contentDisplayed.title}/>}>
                   {/* Need to render the rest of the fields here */}
                 </Route>
               </Switch>
