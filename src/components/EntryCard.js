@@ -3,7 +3,7 @@ import { Card } from 'antd'
 import { Link } from 'react-router-dom'
 
 function entryCard(props) {
-    const cardRoute = `/entry/${props.type}/${props.title}`
+    const cardRoute = `/entry/${props.type}/${props.id}`
     return (
       <div>
         <Link to={cardRoute}>

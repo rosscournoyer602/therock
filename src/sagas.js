@@ -8,34 +8,52 @@ const client = createClient({
     accessToken: creds.deliveryToken
 })
 
-//when the user click an entry, go get it from Contentful
-export function* getProcessEntrySaga(action) {
-    const entry = yield client.getEntry(action.payload)
-    const entryFields = {
-        title: entry.fields.title,
-        purpose: entry.fields.purpose,
-        responsibleIndividuals: entry.fields.responsibleIndividuals,
-        relevantDocuments: entry.fields.relevantDocuments,
-        handoffs: entry.fields.handoffs,
-        completionDescription: entry.fields.completionDescription,
-        measuresOfSuccess: entry.fields.measuresOfSuccess,
-        faq: entry.fields.faq,
-        team: entry.fields.team,
-        type: entry.sys.contentType.sys.id
+//when the user click an entry, go get it from Contentful,
+//look at action payload to figure out what kind of entry
+//to return
+export function* getEntrySaga(action) {
+    const entry = yield client.getEntry(action.id)
+    let entryFields
+    switch (action.contentType) {
+        case 'walkthrough':
+            entryFields = {
+                title: entry.fields.title,
+                description: entry.fields.description,
+                video: entry.fields.video,
+                team: entry.fields.team,
+                type: entry.sys.contentType.sys.id,
+            }
+            break;
+        case 'process':
+            entryFields = {
+                title: entry.fields.title,
+                purpose: entry.fields.purpose,
+                responsibleIndividuals: entry.fields.responsibleIndividuals,
+                relevantDocuments: entry.fields.relevantDocuments,
+                handoffs: entry.fields.handoffs,
+                completionDescription: entry.fields.completionDescription,
+                measuresOfSuccess: entry.fields.measuresOfSuccess,
+                faq: entry.fields.faq,
+                team: entry.fields.team,
+                type: entry.sys.contentType.sys.id,
+            }
+            break;
+        default:
+            entryFields = {}
+            break;
     }
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
-export function* getProcessEntriesSaga(action) {
+export function* getEntriesSaga(action) {
     let contentType = ''
-    console.log(typeof action.contentType)
     if (action.contentType.includes('1')) { contentType = 'process' }
     if (action.contentType.includes('2')) { contentType = 'walkthrough' }
-
     const searchObject = {
         'content_type': contentType,
         'fields.team': action.tabName
     }
+
     const entries = yield client.getEntries(searchObject)
     //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
@@ -65,12 +83,12 @@ export function* searchEntriesSaga(action) {
 }
 
 //listen for actions and call sagas
-export function* watchGetProcessEntrySaga() {
-    yield takeEvery(actionTypes.GET_ENTRY, getProcessEntrySaga)
+export function* watchGetEntrySaga() {
+    yield takeEvery(actionTypes.GET_ENTRY, getEntrySaga)
 }
 
-export function* watchGetProcessEntriesSaga() {
-    yield takeEvery(actionTypes.GET_ENTRIES, getProcessEntriesSaga)
+export function* watchGetEntriesSaga() {
+    yield takeEvery(actionTypes.GET_ENTRIES, getEntriesSaga)
 }
 
 export function* watchSearchEntriesSaga() {
@@ -79,8 +97,8 @@ export function* watchSearchEntriesSaga() {
 
 export default function* rootSaga() {
     yield all([
-        watchGetProcessEntriesSaga(),
-        watchGetProcessEntrySaga(),
+        watchGetEntriesSaga(),
+        watchGetEntrySaga(),
         watchSearchEntriesSaga()
     ])
 }

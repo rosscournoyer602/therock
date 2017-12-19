@@ -8,7 +8,7 @@ function Walkthrough(props) {
           <h2 className="processFieldHeader">{props.title}</h2>
         </div>
         <div className="processField">
-          <h2 className="processFieldHeader">{props.video}</h2>
+          <p className="processFieldHeader">Video</p>
         </div>
       </div>
     )

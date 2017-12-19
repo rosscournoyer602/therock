@@ -10,8 +10,13 @@ class Entries extends Component {
   render(){
     const entries = this.props.entriesDisplayed.map((item) => {
       return (
-        <li style={style} key={item.title} onClick={() => this.props.getEntry(item.id)}>
-          <EntryCard title={item.title} purpose={item.purpose} team={item.team} type={item.type}/>
+        <li style={style} key={item.title} onClick={() => this.props.getEntry(item.id, item.type)}>
+          <EntryCard 
+            title={item.title} 
+            purpose={item.purpose} 
+            id={item.id}
+            team={item.team} 
+            type={item.type}/>
         </li>
       )
     })

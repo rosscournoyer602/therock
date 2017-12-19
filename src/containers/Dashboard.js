@@ -28,7 +28,9 @@ class Dashboard extends Component {
                 </Route>
                 <Route 
                   path="/entry/walkthrough/:entry" 
-                  render={() => <Walkthrough title={this.props.contentDisplayed.title}/>}>
+                  render={() => <Walkthrough 
+                  title={this.props.contentDisplayed.title}
+                  video={this.props.contentDisplayed.video}/>}>
                   {/* Need to render the rest of the fields here */}
                 </Route>
               </Switch>
