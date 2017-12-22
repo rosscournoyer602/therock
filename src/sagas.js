@@ -16,10 +16,12 @@ export function* getEntrySaga(action) {
     let entryFields
     switch (action.contentType) {
         case 'walkthrough':
+            const videoAsset = yield client.getAsset(entry.fields.video.sys.id)
+            console.log(videoAsset)
             entryFields = {
                 title: entry.fields.title,
                 description: entry.fields.description,
-                video: entry.fields.video,
+                video: videoAsset.fields.file.url,
                 team: entry.fields.team,
                 type: entry.sys.contentType.sys.id,
             }
