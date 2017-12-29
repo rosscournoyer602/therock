@@ -1,23 +1,28 @@
 import {put, takeEvery, all} from 'redux-saga/effects'
 import * as actionTypes from './actions/actionTypes'
-import { createClient } from 'contentful'
 import creds from './creds.json'
+import { readAsDataURL } from 'promise-file-reader'
+const deliverySDK = require('contentful')
+const managementSDK= require('contentful-management')
+const fs = require('fs');
 
-const client = createClient({
+const client = deliverySDK.createClient({
     space: creds.spaceID,
     accessToken: creds.deliveryToken
 })
-
+const managementClient = managementSDK.createClient({
+    space: creds.spaceID,
+    accessToken: creds.publishToken
+})
 //when the user click an entry, go get it from Contentful,
 //look at action payload to figure out what kind of entry
 //to return
-export function* getEntrySaga(action) {
+function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id)
     let entryFields
     switch (action.contentType) {
         case 'walkthrough':
             const videoAsset = yield client.getAsset(entry.fields.video.sys.id)
-            console.log(videoAsset)
             entryFields = {
                 title: entry.fields.title,
                 description: entry.fields.description,
@@ -47,7 +52,7 @@ export function* getEntrySaga(action) {
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
-export function* getEntriesSaga(action) {
+function* getEntriesSaga(action) {
     let contentType = ''
     if (action.contentType.includes('1')) { contentType = 'process' }
     if (action.contentType.includes('2')) { contentType = 'walkthrough' }
@@ -70,7 +75,7 @@ export function* getEntriesSaga(action) {
     yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles })
 }
 
-export function* searchEntriesSaga(action) {
+function* searchEntriesSaga(action) {
     const searchResults = yield client.getEntries({query: action.payload})
     //[ISSUE] possibly redundant, could use getProcessEntries saga
     const searchTitles = searchResults.items.map((entry) => {
@@ -84,23 +89,62 @@ export function* searchEntriesSaga(action) {
     yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles})
 }
 
+function* createUploadSaga(action) {
+    const dataPath = yield readAsDataURL(action.payload.file)
+    const type = action.payload.file.type
+    const uploadObject = {
+        file: dataPath,
+        type
+    }
+    const space = yield managementClient.getSpace()
+    const upload = yield space.createUpload(uploadObject)
+ 
+    const assetObject = {
+      fields: {
+        title: {
+          'en-US': action.payload.file.name
+        },
+          file: {
+            'en-US': {
+              fileName: action.payload.file.name,
+              contentType: type,
+              uploadFrom: {
+                  sys: {
+                    type: 'Link',
+                    linkType: 'Upload',
+                    id: upload.sys.createdBy.sys.id
+                }
+              }
+            }
+          }
+      }
+    }
+    
+    const asset =  yield space.createAsset(assetObject)
+}
+
 //listen for actions and call sagas
-export function* watchGetEntrySaga() {
+function* watchGetEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getEntrySaga)
 }
 
-export function* watchGetEntriesSaga() {
+function* watchGetEntriesSaga() {
     yield takeEvery(actionTypes.GET_ENTRIES, getEntriesSaga)
 }
 
-export function* watchSearchEntriesSaga() {
+function* watchSearchEntriesSaga() {
     yield takeEvery(actionTypes.SEARCH_ENTRIES, searchEntriesSaga)
+}
+
+function* watchCreateUploadSaga() {
+    yield takeEvery(actionTypes.CREATE_UPLOAD, createUploadSaga)
 }
 
 export default function* rootSaga() {
     yield all([
         watchGetEntriesSaga(),
         watchGetEntrySaga(),
-        watchSearchEntriesSaga()
+        watchSearchEntriesSaga(),
+        watchCreateUploadSaga()
     ])
 }

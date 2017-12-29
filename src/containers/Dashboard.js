@@ -34,7 +34,7 @@ class Dashboard extends Component {
                   video={this.props.contentDisplayed.video}/>}>
                   {/* Need to render the rest of the fields here */}
                 </Route>
-                {/* <Route path="/add" component={Create} /> */}
+                <Route path="/add" component={Create} />
               </Switch>
             </Content>
           </Layout>
