@@ -4,17 +4,98 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import createUpload from '../actions/createUpload'
 import { withRouter } from 'react-router'
+import creds from '../creds.json';
+import { readAsArrayBuffer } from 'promise-file-reader';
 const { TextArea } = Input
 const FormItem = Form.Item
+const deliverySDK = require('contentful');
+const managementSDK= require('contentful-management');
+
+const client = deliverySDK.createClient({
+  space: creds.spaceID,
+  accessToken: creds.deliveryToken
+});
+const managementClient = managementSDK.createClient({
+  space: creds.spaceID,
+  accessToken: creds.publishToken
+});
 
 class Create extends Component {
+  constructor(props){
+    super(props)
 
+    this.uploaderProps = {
+      beforeUpload(file) {
+        console.log('beforeUpload')
+      },
+      onStart: (file) => {
+        console.log('onStart', file)
+      },
+      onSuccess(file) {
+        console.log('onSuccess', file)
+      },
+      onError(err) {
+        console.log('onError', err)
+      }
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
+    });
+  }
+  createUpload = ({ onSuccess, onError, file }) => {
+    console.log(file)
+    //console.log(this.onSuccess)
+    managementClient.getSpace().then((space) => {
+      console.log('uploading...');
+      return space.createUpload({
+        file: readAsArrayBuffer(file),
+        type: file.type,
+        fileName: file.name
+      })
+      .then((upload) => {
+        console.log('creating asset...');
+        return space.createAsset({
+          fields: {
+            title: {
+              'en-US': file.name
+            },
+            file: {
+              'en-US': {
+                fileName: file.name,
+                contentType: file.type,
+                uploadFrom: {
+                  sys: {
+                    type: 'Link',
+                    linkType: 'Upload',
+                    id: upload.sys.id
+                  }
+                }
+              }
+            }
+          }
+        })
+        .then((asset) => {
+          console.log('processing...');
+          return asset.processForLocale('en-US', { processingCheckWait: 2000 });
+        })
+        .then((asset) => {
+          console.log('publishing...');
+          return asset.publish();
+        })
+        .then((asset) => {
+          console.log(asset);
+          onSuccess(null, file);
+          return asset;
+        })
+      })
+      .catch((err) => {
+        onError(err);
+      });
     });
   }
   normFile = (e) => {
@@ -24,11 +105,13 @@ class Create extends Component {
     }
     return e && e.fileList;
   }
+  onChange = (e) => {
+    console.log('hey' + e)
+  }
   render() {
     const { getFieldDecorator, setFieldValues } = this.props.form;
     const inputStyle = {width: "100%"}
     const textAreaStyle = {width: "100%", resize: "vertical"}
-
     return (
 
       <Form layout="vertical" onSubmit={this.handleSubmit}>
@@ -70,7 +153,8 @@ class Create extends Component {
             valuePropName: 'fileList',
             getValueFromEvent: this.normFile,
           })(
-            <Upload name="logo" action={"/"} customRequest={(e) => this.props.createUpload(e)} listType="text">
+            <Upload name="logo" action={"/"} customRequest={(e) => this.createUpload(e)} onChange={this.onChange} listType="text" 
+                    onChange = {this.onChange}>
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -91,6 +175,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators( { createUpload }, dispatch)
 }
 
-const CreateEntry = Form.create()(Create);
+function mapStateToProps(state) {
+  return { uploadsReady: state.assetsReady }
+}
 
-export default withRouter(connect(null, mapDispatchToProps)(CreateEntry))
+const CreateEntry = Form.create()(Create)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateEntry))

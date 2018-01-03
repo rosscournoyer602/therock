@@ -1,7 +1,7 @@
 import { CREATE_UPLOAD } from './actionTypes'
 
 const createUpload = (upload) => {
-    console.log('Action created: ' + CREATE_UPLOAD + ' ' + upload.file.name)
+    console.log(upload)
     return {
         type: CREATE_UPLOAD,
         payload: upload
