@@ -2,7 +2,7 @@ Description: A Knowledge Base site that that allows users to read/create/update/
 
 Next Steps:
 
-1. Just call create upload saga from create component to get link back
+1. Write saga to post new entry
 2. Put delete and update buttons on Dashboard
 3. Create 'add knowledge' form component for process/walkthrough with toggle
 4. Display a message when no search results are found

@@ -89,61 +89,8 @@ function* searchEntriesSaga(action) {
     yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles});
 }
 
-export function* createUploadSaga(action) {
-    const dataPath = yield readAsArrayBuffer(action.payload.file);
-    const type = action.payload.file.type;
-    const uploadObject = {
-        file: dataPath,
-        type
-    };
-    const space = yield managementClient.getSpace();
-    console.log('uploading...')
-    const upload = yield space.createUpload(uploadObject)
-    .then((upload) => {
-      console.log('Creating asset...');
-        return space.createAsset({
-          fields: {
-            title: {
-              'en-US': action.payload.file.name
-            },
-                  file: {
-                    'en-US': {
-                      fileName: action.payload.file.name,
-                      contentType: type,
-                      uploadFrom: {
-                        sys: {
-                          type: 'Link',
-                          linkType: 'Upload',
-                          id: upload.sys.id
-                        }
-                      }
-                    }
-                  }
-          }
-        })
-    })
-    .then((asset) => {
-        console.log('processing...');
-        return asset.processForLocale('en-US', 
-        { 
-            processingCheckWait: 2000, 
-            procesisngCheckRetries: 20 
-        })
-    })
-    .then((asset) => {
-        console.log('publishing...');
-        return asset.publish();
-    })
-    .then((asset) => {
-        console.log(asset);
-        return asset;
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-   
-    yield put ({type: actionTypes.READY_ASSETS, asset: upload})
-    return upload
+function* createEntrySaga(action) {
+    console.log('Create Entry!')
 }
 
 //listen for actions and call sagas
@@ -159,8 +106,8 @@ function* watchSearchEntriesSaga() {
     yield takeEvery(actionTypes.SEARCH_ENTRIES, searchEntriesSaga);
 }
 
-function* watchCreateUploadSaga() {
-    yield takeEvery(actionTypes.CREATE_UPLOAD, createUploadSaga);
+function* watchCreateEntrySaga() {
+    yield takeEvery(actionTypes.CREATE_ENTRY, createEntrySaga)
 }
 
 export default function* rootSaga() {
@@ -168,6 +115,6 @@ export default function* rootSaga() {
         watchGetEntriesSaga(),
         watchGetEntrySaga(),
         watchSearchEntriesSaga(),
-        watchCreateUploadSaga()
+        watchCreateEntrySaga()
     ])
 }

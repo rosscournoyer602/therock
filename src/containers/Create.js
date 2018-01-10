@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, Button, Upload, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import createUpload from '../actions/createUpload'
+import createEntry from '../actions/createEntry'
 import { withRouter } from 'react-router'
 import creds from '../creds.json';
 import { readAsArrayBuffer } from 'promise-file-reader';
@@ -38,14 +38,19 @@ class Create extends Component {
         console.log('onError', err)
       }
     }
+    this.assets = []
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    const form = document.getElementById("form")
     this.props.form.validateFields((err, values) => {
+      values.assets = this.assets
+      this.props.createEntry(values)
       if (!err) {
         console.log('Received values of form: ', values);
       }
-    });
+    })
+    this.props.form.resetFields()
   }
   createUpload = ({ onSuccess, onError, file }) => {
     console.log(file)
@@ -88,7 +93,9 @@ class Create extends Component {
           return asset.publish();
         })
         .then((asset) => {
-          console.log(asset);
+          // console.log(asset);
+          this.assets.push(asset.sys.id)
+          console.log(this.assets)
           onSuccess(null, file);
           return asset;
         })
@@ -114,7 +121,7 @@ class Create extends Component {
     const textAreaStyle = {width: "100%", resize: "vertical"}
     return (
 
-      <Form layout="vertical" onSubmit={this.handleSubmit}>
+      <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
         <FormItem label="Title:">
           {getFieldDecorator('title', 
           {rules:[{type: 'string', message: 'Title must be a string!'}, 
@@ -153,8 +160,7 @@ class Create extends Component {
             valuePropName: 'fileList',
             getValueFromEvent: this.normFile,
           })(
-            <Upload name="logo" action={"/"} customRequest={(e) => this.createUpload(e)} onChange={this.onChange} listType="text" 
-                    onChange = {this.onChange}>
+            <Upload name="logo" action={"/"} customRequest={(e) => this.createUpload(e)} listType="text" onChange = {this.onChange}>
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -172,7 +178,7 @@ class Create extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { createUpload }, dispatch)
+  return bindActionCreators( { createEntry }, dispatch)
 }
 
 function mapStateToProps(state) {
