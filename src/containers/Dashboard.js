@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom'
 import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
-import Create from './Create'
+import ToggleCreate from '../components/ToggleCreate'
+import CreateProcess from './CreateProcess'
 import { Layout } from 'antd'
 const { Content } = Layout
 
@@ -34,7 +35,7 @@ class Dashboard extends Component {
                   video={this.props.contentDisplayed.video}/>}>
                   {/* Need to render the rest of the fields here */}
                 </Route>
-                <Route path="/add" component={Create} />
+                <Route path="/add" component={ToggleCreate} />
               </Switch>
             </Content>
           </Layout>

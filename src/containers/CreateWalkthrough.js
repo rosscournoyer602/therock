@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Upload, Icon } from 'antd'
+import { Form, Input, Button, Upload, Icon, Radio, Select } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import createEntry from '../actions/createEntry'
 import { withRouter } from 'react-router'
 import creds from '../creds.json';
 import { readAsArrayBuffer } from 'promise-file-reader';
+import style from './style.css'
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+const Option = Select.Option;
 const { TextArea } = Input
 const FormItem = Form.Item
 const deliverySDK = require('contentful');
@@ -120,59 +124,58 @@ class Create extends Component {
     const inputStyle = {width: "100%"}
     const textAreaStyle = {width: "100%", resize: "vertical"}
     return (
-
-      <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
-        <FormItem label="Title:">
-          {getFieldDecorator('title', 
-          {rules:[{type: 'string', message: 'Title must be a string!'}, 
-          {required: true, message: 'Must enter a Title!'} ] })(
-            <Input placeholder="Adding a Process to The Rock" style={inputStyle} />)}
-        </FormItem>
-        <FormItem label="Purpose:">
-          {getFieldDecorator('purpose', 
-          {rules:[{type: 'string', message: 'Purpose must be a string!'}, 
-          {required: true, message: 'Must enter a Purpose!'} ] })(
-            <TextArea placeholder="To raise the average effectiveness of a team." 
-                      style={textAreaStyle} autosize={{ minRows: 2, maxRows: 4 }} />)}
-        </FormItem>
-        <FormItem label="DRI (Please separate multiple entries with a comma):">
-          {getFieldDecorator('responsibleIndividuals', 
-          {rules:[{type: 'string', message: 'DRI must must be a string!'}, 
-          {required: true, message: 'Must enter a DRI!'} ] })(
-            <Input placeholder="Partner" style={inputStyle}/>)}
-        </FormItem>
-        <FormItem label="Completion Descripion:">
-          {getFieldDecorator('description', {
-            rules:[{type: 'string', message: 'Description must be a string!'}, 
+      <div>
+        {/* <div className="toggle">
+          <RadioGroup defaultValue="a" size="large">
+            <RadioButton value="a">Process Guide</RadioButton>
+            <RadioButton value="b">Walkthrough Video</RadioButton>
+          </RadioGroup>
+        </div> */}
+        <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
+          <FormItem label="Title:">
+            {getFieldDecorator('title', 
+            {rules:[{type: 'string', message: 'Title must be a string!'}, 
+            {required: true, message: 'Must enter a Title!'} ] })(
+              <Input placeholder="Adding a Process to The Rock" style={inputStyle} />)}
+          </FormItem>
+          <FormItem label="Description:">
+            {getFieldDecorator('description', 
+            {rules:[{type: 'string', message: 'Description must must be a string!'}, 
+            {required: true, message: 'Must enter a description!'} ] })(
+              <TextArea placeholder="1. Everyone formats their entries properly" 
+                      style={textAreaStyle} autosize={{ minRows: 4, maxRows: 6 }} />)}
+          </FormItem>
+          <FormItem label="Team">
+            {getFieldDecorator('measures', 
+            {rules:[{type: 'string', message: 'Description must be a string!'}, 
             {required: true, message: 'Must enter completion description!'} ] })(
-              <TextArea placeholder="1. Step one " 
-                        style={textAreaStyle} autosize={{ minRows: 6, maxRows: 8 }} />)}
-        </FormItem>
-        <FormItem label="Measures of Success:">
-          {getFieldDecorator('measures', 
-          {rules:[{type: 'string', message: 'Description must be a string!'}, 
-          {required: true, message: 'Must enter completion description!'} ] })(
-          <TextArea placeholder="1. Everyone formats their entries properly" 
-                    style={textAreaStyle} autosize={{ minRows: 4, maxRows: 6 }} />)}
-        </FormItem>
-        <FormItem label="Upload">
-          {getFieldDecorator('upload', {
-            valuePropName: 'fileList',
-            getValueFromEvent: this.normFile,
-          })(
-            <Upload name="logo" action={"/"} customRequest={(e) => this.createUpload(e)} listType="text" onChange = {this.onChange}>
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
-        </FormItem>
-        <FormItem>
-          <Button type="primary" htmlType="submit">
-            Add New Entry
-          </Button>
-        </FormItem>
-      </Form>
+            <Select style={{ width:140 }}>
+              <Option value="Community">Community</Option>
+              <Option value="Systems">Systems</Option>
+              <Option value="People">People</Option>
+              <Option value="Experience">Experience</Option>
+              <Option value="Brand">Brand</Option>
+            </Select>)}
+          </FormItem>
+          <FormItem label="Video File:">
+            {getFieldDecorator('upload', {
+              valuePropName: 'fileList',
+              getValueFromEvent: this.normFile,
+            })(
+              <Upload name="logo" action={"/"} customRequest={(e) => this.createUpload(e)} listType="text" onChange = {this.onChange}>
+                <Button>
+                  <Icon type="upload" /> Click to upload
+                </Button>
+              </Upload>
+            )}
+          </FormItem>
+          <FormItem>
+            <Button type="primary" htmlType="submit">
+              Add New Entry
+            </Button>
+          </FormItem>
+        </Form>
+      </div>
     );
   }
 }
