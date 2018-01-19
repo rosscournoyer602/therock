@@ -6,7 +6,6 @@ import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
 import ToggleCreate from '../components/ToggleCreate'
-import CreateProcess from './CreateProcess'
 import { Layout } from 'antd'
 const { Content } = Layout
 

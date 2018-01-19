@@ -3,7 +3,7 @@ Description: A Knowledge Base site that that allows users to read/create/update/
 Next Steps:
 
 1. Write saga to post new entry
-2. Display a message when no search results are found
+2. Display a message when no search results are not found
 3. Clear searchbar on enter
 
 

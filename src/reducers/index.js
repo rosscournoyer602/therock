@@ -3,7 +3,7 @@ import tabSelected from './tabSelected'
 import contentDisplayed from './contentDisplayed'
 import entriesDisplayed from './entriesDisplayed'
 import searchDisplayed from './searchDisplayed'
-import assetsReady from './assetsReady'
+import uploadsQueued from './uploadsQueued'
 import tabs from './tabs'
 
 const rootReducer = combineReducers({
@@ -11,9 +11,8 @@ const rootReducer = combineReducers({
     contentDisplayed,
     entriesDisplayed,
     searchDisplayed,
-    assetsReady,
+    uploadsQueued,
     tabs
-
 })
 
 export default rootReducer
