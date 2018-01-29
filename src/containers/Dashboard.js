@@ -24,7 +24,14 @@ class Dashboard extends Component {
                 <Route path="/entries" component={Entries} />
                 <Route 
                   path="/entry/process/:entry" 
-                  render={() => <ProcessGuide title={this.props.contentDisplayed.title}/>}>
+                  render={() => <ProcessGuide 
+                    title={this.props.contentDisplayed.title}
+                    purpose={this.props.contentDisplayed.purpose}
+                    responsibleIndividuals={this.props.contentDisplayed.responsibleIndividuals}
+                    completionDescription={this.props.contentDisplayed.completionDescription}
+                    measures={this.props.contentDisplayed.measuresOfSuccess}
+                    team={this.props.contentDisplayed.team}
+                    relevantDocuments={this.props.contentDisplayed.relevantDocuments}/>}>
                   {/* Need to render the rest of the fields here */}
                 </Route>
                 <Route 

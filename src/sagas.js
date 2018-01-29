@@ -2,6 +2,8 @@ import {put, takeEvery, all} from 'redux-saga/effects';
 import * as actionTypes from './actions/actionTypes';
 import { readAsArrayBuffer } from 'promise-file-reader';
 import creds from './creds.json';
+const axios = require('axios')
+const resumable = require('resumablejs')
 const deliverySDK = require('contentful');
 const managementSDK= require('contentful-management');
 
@@ -13,11 +15,10 @@ const managementClient = managementSDK.createClient({
     space: creds.spaceID,
     accessToken: creds.publishToken
   });
-//when the user click an entry, go get it from Contentful,
-//look at action payload to figure out what kind of entry
-//to return
+
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
+    console.log(entry.sys.id)
     let entryFields;
     switch (action.contentType) {
         case 'walkthrough':
@@ -28,9 +29,11 @@ function* getEntrySaga(action) {
                 video: videoAsset.fields.file.url,
                 team: entry.fields.team,
                 type: entry.sys.contentType.sys.id,
+                id: entry.sys.id
             };
             break;
         case 'process':
+            //relevant documents not getting into state
             entryFields = {
                 title: entry.fields.title,
                 purpose: entry.fields.purpose,
@@ -42,6 +45,7 @@ function* getEntrySaga(action) {
                 faq: entry.fields.faq,
                 team: entry.fields.team,
                 type: entry.sys.contentType.sys.id,
+                id: entry.sys.id
             };
             break;
         default:
@@ -87,20 +91,36 @@ function* searchEntriesSaga(action) {
     });
     yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles});
 }
-function* createUploadSaga(action) {
 
+function* createUploadSaga(action) {
+    console.log(action)
     const file = action.payload.file
-    const { onSuccess, onProgress } = action.payload
+    const { onSuccess, onProgress, onError } = action.payload
     const fileStream = yield readAsArrayBuffer(file)
-    onProgress({ percent: 20 })
-    const space = yield managementClient.getSpace()
-    console.log('uploading...')
-    const upload = yield space.createUpload({
-        file: fileStream,
-        type: file.type,
-        fileName: file.name
+    const instance = axios.create({
+        baseURL: ` https://upload.contentful.com/spaces/dbqktrvlm9hp/uploads`,
+        timeout: 999999,
+        Auth: creds.publishToken,
+        headers: {
+            'Content-Type': 'application/octet-stream',
+            'Authorization': 'Bearer CFPAT-1f2d55a62d1a9e24ce7d15b8ea95cf0eb1ddafb6377c4e5293b9d9f42d06bec1'
+        },
+        onUploadProgress: 
+            (event) => onProgress({ percent: Math.floor((event.loaded/event.total) * 100)}),
+        onUploadError:
+            (error) => onError(console.log(error))
+        
     })
-    onProgress({ percent: 45 })
+    console.log('uploading...')
+    const upload = yield instance.post(``, fileStream)
+    console.log(upload)
+    const space = yield managementClient.getSpace()
+    // // const upload = yield space.createUpload({
+    // //     file: fileStream,
+    // //     type: file.type,
+    // //     fileName: file.name,
+    // //     onUploadProgress: (event) => onProgress({ percent: Math.floor((event.loaded/event.total) * 100)})
+    // // })
     console.log('creating asset...')
     const asset = yield space.createAsset({
         fields: {
@@ -115,25 +135,22 @@ function* createUploadSaga(action) {
                     sys: {
                         type: 'Link',
                         linkType: 'Upload',
-                        id: upload.sys.id
+                        id: upload.data.sys.id
                     }
                 }
             }
             }
         }
     })
-    onProgress({ percent: 65 })
     console.log('processing...')
-    onProgress({ percent: 85 })
     const processed = yield asset.processForLocale('en-US', { processingCheckWait: 2000 });
     console.log('publishing...')
     const published = yield processed.publish()
-    onProgress({ percent: 100 })
     onSuccess(null, file)
     yield put ({type: actionTypes.QUEUE_UPLOADS, payload: asset})
 }
+
 function* createEntrySaga(action) {
-    console.log(action)
     let assetID
     let fields
     const space = yield managementClient.getSpace()
@@ -205,6 +222,10 @@ function* createEntrySaga(action) {
 
 }
 
+function* deleteEntrySaga(action) {
+    console.log(action)
+}
+
 //listen for actions and call sagas
 function* watchGetEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getEntrySaga);
@@ -226,12 +247,18 @@ function* watchCreateUploadSaga() {
     yield takeEvery(actionTypes.CREATE_UPLOAD, createUploadSaga)
 }
 
+function* watchDeleteEntrySaga() {
+
+    yield takeEvery(actionTypes.DELETE_ENTRY, deleteEntrySaga)
+}
+
 export default function* rootSaga() {
     yield all([
         watchGetEntriesSaga(),
         watchGetEntrySaga(),
         watchSearchEntriesSaga(),
         watchCreateEntrySaga(),
-        watchCreateUploadSaga()
+        watchCreateUploadSaga(),
+        watchDeleteEntrySaga()
     ])
 }

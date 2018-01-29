@@ -5,8 +5,7 @@ export default function(){
             systems: "Systems",
             people: "People",
             experience: "Experience",
-            brand: "Brand",
-            wizardry: "Wizardry"
+            brand: "Brand"
         }
     )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import UpdaterDeleter from '../containers/UpdaterDeleter'
 import { withRouter } from 'react-router-dom';
 
 function Walkthrough(props) {
@@ -11,6 +12,7 @@ function Walkthrough(props) {
         <div className="processField">
           <video src={src} width="650px" controls></video>
         </div>
+        <UpdaterDeleter />
       </div>
     )
   }
