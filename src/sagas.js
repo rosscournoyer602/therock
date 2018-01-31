@@ -34,11 +34,12 @@ function* getEntrySaga(action) {
             break;
         case 'process':
             //relevant documents not getting into state
+            console.log(entry)
             entryFields = {
                 title: entry.fields.title,
                 purpose: entry.fields.purpose,
                 responsibleIndividuals: entry.fields.responsibleIndividuals,
-                relevantDocuments: entry.fields.relevantDocuments,
+                // relevantDocuments: entry.fields.relevantDocuments,
                 handoffs: entry.fields.handoffs,
                 completionDescription: entry.fields.completionDescription,
                 measuresOfSuccess: entry.fields.measuresOfSuccess,
@@ -182,6 +183,8 @@ function* createEntrySaga(action) {
             break;
         case 'process':
         let assets
+        console.log(action.payload.assets)
+        //Upload files like you do videos
         if (action.payload.assets.length > 0) {
             assets = action.payloads.assets.map((asset) => {
             return assets
@@ -223,7 +226,12 @@ function* createEntrySaga(action) {
 }
 
 function* deleteEntrySaga(action) {
-    console.log(action)
+    const space = yield managementClient.getSpace()
+    const entry = yield space.getEntry(action.payload)
+    //console.log(action.payload)
+    const unpublishedEntry = yield entry.unpublish()
+    unpublishedEntry.delete()
+    yield put({type: actionTypes.CLEAR_DISPLAY})
 }
 
 //listen for actions and call sagas

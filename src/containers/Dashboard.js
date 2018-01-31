@@ -16,36 +16,34 @@ class Dashboard extends Component {
       background: 'white'
     }
     return (
-        <Layout>
-          <Layout style={style}>
-            <Content>
-              <Switch>
-                <Route path="/search/:entry" component={Entries} />
-                <Route path="/entries" component={Entries} />
-                <Route 
-                  path="/entry/process/:entry" 
-                  render={() => <ProcessGuide 
-                    title={this.props.contentDisplayed.title}
-                    purpose={this.props.contentDisplayed.purpose}
-                    responsibleIndividuals={this.props.contentDisplayed.responsibleIndividuals}
-                    completionDescription={this.props.contentDisplayed.completionDescription}
-                    measures={this.props.contentDisplayed.measuresOfSuccess}
-                    team={this.props.contentDisplayed.team}
-                    relevantDocuments={this.props.contentDisplayed.relevantDocuments}/>}>
-                  {/* Need to render the rest of the fields here */}
-                </Route>
-                <Route 
-                  path="/entry/walkthrough/:entry" 
-                  render={() => <Walkthrough 
-                  title={this.props.contentDisplayed.title}
-                  video={this.props.contentDisplayed.video}/>}>
-                  {/* Need to render the rest of the fields here */}
-                </Route>
-                <Route path="/add" component={ToggleCreate} />
-              </Switch>
-            </Content>
-          </Layout>
-        </Layout>
+      <Layout style={style}>
+        <Content>
+          <Switch>
+            <Route path="/search/:entry" component={Entries} />
+            <Route path="/entries" component={Entries} />
+            <Route 
+              path="/entry/process/:entry" 
+              render={() => <ProcessGuide 
+                title={this.props.contentDisplayed.title}
+                purpose={this.props.contentDisplayed.purpose}
+                responsibleIndividuals={this.props.contentDisplayed.responsibleIndividuals}
+                completionDescription={this.props.contentDisplayed.completionDescription}
+                measures={this.props.contentDisplayed.measuresOfSuccess}
+                team={this.props.contentDisplayed.team}
+                relevantDocuments={this.props.contentDisplayed.relevantDocuments}/>}>
+              {/* Need to render the rest of the fields here */}
+            </Route>
+            <Route 
+              path="/entry/walkthrough/:entry" 
+              render={() => <Walkthrough 
+              title={this.props.contentDisplayed.title}
+              video={this.props.contentDisplayed.video}/>}>
+              {/* Need to render the rest of the fields here */}
+            </Route>
+            <Route path="/add" component={ToggleCreate} />
+          </Switch>
+        </Content>
+      </Layout>
     )
   }
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import selectTab from '../actions/selectTab'
 import getEntries from '../actions/getEntries'
+import clearEntries from '../actions/clearEntries'
 import clearDisplay from '../actions/clearDisplay'
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd'
@@ -32,6 +33,8 @@ class TabList extends Component {
 
     onOpenChange = (openKeys) => {
       this.props.clearDisplay()
+      this.props.clearEntries()
+
       const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
       this.setState(
         {openKeys: latestOpenKey ? [latestOpenKey] : []}
@@ -56,7 +59,7 @@ function mapStateToProps(state) {
   return { tabs: state.tabs, tabSelected: state.tabSelected}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { selectTab, getEntries, clearDisplay }, dispatch)
+  return bindActionCreators( { selectTab, getEntries, clearDisplay, clearEntries }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabList)
