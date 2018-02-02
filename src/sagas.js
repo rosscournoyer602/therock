@@ -19,7 +19,7 @@ const managementClient = managementSDK.createClient({
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
     console.log(entry.sys.id)
-    let entryFields;
+    let entryFields = {};
     switch (action.contentType) {
         case 'walkthrough':
             const videoAsset = yield client.getAsset(entry.fields.video.sys.id)
@@ -87,7 +87,8 @@ function* searchEntriesSaga(action) {
             title: entry.fields.title,
             purpose: entry.fields.purpose,
             id: entry.sys.id,
-            team: entry.fields.team
+            team: entry.fields.team,
+            type: entry.sys.contentType.sys.id
         };
     });
     yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles});
@@ -183,7 +184,6 @@ function* createEntrySaga(action) {
             break;
         case 'process':
         let assets
-        console.log(action.payload.assets)
         //Upload files like you do videos
         if (action.payload.assets.length > 0) {
             assets = action.payloads.assets.map((asset) => {

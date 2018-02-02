@@ -1,4 +1,10 @@
-li { cursor: pointer; }
+li { 
+    cursor: pointer;
+ }
+
+ .processList {
+    list-style: inside decimal-leading-zero;
+ }
 
 .toggle { 
     margin: auto;

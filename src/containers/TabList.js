@@ -5,7 +5,7 @@ import selectTab from '../actions/selectTab'
 import getEntries from '../actions/getEntries'
 import clearEntries from '../actions/clearEntries'
 import clearDisplay from '../actions/clearDisplay'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Menu } from 'antd'
 import 'antd/dist/antd.css'
 const SubMenu = Menu.SubMenu
@@ -19,13 +19,14 @@ class TabList extends Component {
     }
     this.tabItems = Object.values(props.tabs).map((tab) => {
       return (
-            <SubMenu
-              key={tab} 
-              onTitleClick={() => this.props.selectTab(tab)}
-              title={tab}>
-                <Menu.Item key={tab + '1'}><Link to="/entries">Process Guides</Link></Menu.Item>
-                <Menu.Item key={tab + '2'}><Link to="/entries">Walkthroughs</Link></Menu.Item>
-            </SubMenu>
+        <SubMenu
+          key={tab} 
+          onTitleClick={() => this.props.selectTab(tab)}
+          title={tab}>
+            <Menu.Item key={tab + '1'}><Link to="/entries">Process Guides</Link></Menu.Item>
+            <Menu.Item key={tab + '2'}><Link to="/entries">Walkthroughs</Link></Menu.Item>
+        </SubMenu>
+
       )
     })
     this.rootTabItems = Object.values(props.tabs)
@@ -34,6 +35,7 @@ class TabList extends Component {
     onOpenChange = (openKeys) => {
       this.props.clearDisplay()
       this.props.clearEntries()
+      this.props.history.push('/')
 
       const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
       this.setState(
@@ -62,4 +64,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators( { selectTab, getEntries, clearDisplay, clearEntries }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabList)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TabList))
