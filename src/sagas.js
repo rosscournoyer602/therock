@@ -3,7 +3,6 @@ import * as actionTypes from './actions/actionTypes';
 import { readAsArrayBuffer } from 'promise-file-reader';
 import creds from './creds.json';
 const axios = require('axios')
-const resumable = require('resumablejs')
 const deliverySDK = require('contentful');
 const managementSDK= require('contentful-management');
 
@@ -147,7 +146,7 @@ function* createUploadSaga(action) {
     console.log('processing...')
     const processed = yield asset.processForLocale('en-US', { processingCheckWait: 2000 });
     console.log('publishing...')
-    const published = yield processed.publish()
+    yield processed.publish()
     onSuccess(null, file)
     yield put ({type: actionTypes.QUEUE_UPLOADS, payload: asset})
 }
@@ -163,59 +162,59 @@ function* createEntrySaga(action) {
           const videoAsset = yield client.getAsset(assetID)
           console.log(videoAsset)
             fields = {
-                title: {
-                    "en-US": action.payload.title //works
-                },
-                description: {
-                    "en-US": action.payload.description //works
-                },
-                video: {
-                    "en-US": {
-                        sys: {
-                            type: "Link", linkType: "Asset", id: assetID
-                        }
-                    }
-                },
-                team: {
-                    "en-US": action.payload.team //works 
-                },
-
+              title: {
+                "en-US": action.payload.title
+              },
+              description: {
+                "en-US": action.payload.description
+              },
+              video: {
+                "en-US": {
+                  sys: {
+                    type: "Link", linkType: "Asset", id: assetID
+                  }
+                }
+            },
+              team: {
+                "en-US": action.payload.team
+              },
             }
-            break;
+          break;
         case 'process':
-        let assets
-        //Upload files like you do videos
-        if (action.payload.assets.length > 0) {
+          let assets
+          //Upload files like you do videos
+          if (action.payload.assets.length > 0) {
             assets = action.payloads.assets.map((asset) => {
             return assets
-        })
-        }
-        fields = {
+          })
+          }
+          fields = {
             title: {
-                "en-US": action.payload.title //works
+                "en-US": action.payload.title
             },
             purpose: {
-                "en-US": action.payload.purpose //works
+                "en-US": action.payload.purpose
             },
             responsibleIndividuals: {
-                "en-US": action.payload.responsibleIndividuals.split() //works
+                "en-US": action.payload.responsibleIndividuals.split()
             },
             completionDescription: {
-                "en-US": action.payload.description //works
+                "en-US": action.payload.description
             },
             measuresOfSuccess: {
-                "en-US": action.payload.measures.split() //works
+                "en-US": action.payload.measures.split()
             },
             relevantDocuments: {
                 "en-US": assets
             },
             team: {
-                "en-US": action.payload.team //works 
+                "en-US": action.payload.team
             },
 
-        }
+          }
+          break
         default:
-            break;
+          break;
     }
     const entryCreated = yield space.createEntry(action.payload.contentType, {
         fields: fields

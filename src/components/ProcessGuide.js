@@ -1,11 +1,8 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import UpdaterDeleter from '../containers/UpdaterDeleter'
-import { Icon } from 'antd'
-import style from './style.css'
 
 function ProcessGuide(props) {
-    const purpose = props.purpose.split('[]')
     const completionDescription = props.completionDescription.split(/[1-9]\./).map((step, index) => {
       return <li className="processList" key={index}>{step}</li>
     })
