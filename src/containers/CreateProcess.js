@@ -6,9 +6,7 @@ import createEntry from '../actions/createEntry'
 import createUpload from '../actions/createUpload'
 import uploadsQueued from '../reducers/uploadsQueued'
 import { withRouter } from 'react-router'
-import creds from '../creds.json';
-import style from './style.css'
-const fs = require('fs')
+//import style from './style.css'
 const Option = Select.Option;
 const { TextArea } = Input
 const FormItem = Form.Item

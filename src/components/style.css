@@ -40,7 +40,7 @@
 
 .processFieldTitle {
     font-family: "Montserrat-Black";
-    font-size: 42px;
+    font-size: 32px;
     /* margin-left: 100px;
     margin-right: auto; */
     margin-bottom: 20px;
@@ -48,12 +48,12 @@
 
 .processFieldHeader {
     font-family: "Montserrat-Bold";
-    font-size: 32px
+    font-size: 28px
 }
 
 .processFieldText {
     font-family: "Montserrat-Regular";
-    font-size: 18px
+    font-size: 16px
 }
 
 

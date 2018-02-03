@@ -7,14 +7,12 @@ import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
 import ToggleCreate from '../components/ToggleCreate'
 import { Layout, Spin } from 'antd'
+import style from './style.css'
 const { Content } = Layout
 
 //Generic display port for all data
 class Dashboard extends Component { 
   render(){
-    const style = {
-      background: 'white'
-    }
     return (
       <Layout style={style}>
         <Content>
@@ -24,6 +22,7 @@ class Dashboard extends Component {
             <Route 
               path="/entry/process/:entry" 
               render={() => Object.values(this.props.contentDisplayed).length > 0 ? <ProcessGuide 
+                style = {style}
                 title={this.props.contentDisplayed.title}
                 purpose={this.props.contentDisplayed.purpose}
                 responsibleIndividuals={this.props.contentDisplayed.responsibleIndividuals}
@@ -36,9 +35,10 @@ class Dashboard extends Component {
             {/* { this.props.contentDisplayed === {} ? <Spin />: null } */}
             <Route 
               path="/entry/walkthrough/:entry" 
-              render={() => <Walkthrough 
+              render={() => Object.values(this.props.contentDisplayed).length > 0 ? <Walkthrough 
+              style = {style}
               title={this.props.contentDisplayed.title}
-              video={this.props.contentDisplayed.video}/>}>
+              video={this.props.contentDisplayed.video}/>: <Spin />}>
               {/* Need to render the rest of the fields here */}
             </Route>
             <Route path="/add" component={ToggleCreate} />
