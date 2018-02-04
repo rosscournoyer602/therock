@@ -1,24 +1,23 @@
-import {put, takeEvery, all} from 'redux-saga/effects';
-import * as actionTypes from './actions/actionTypes';
-import { readAsArrayBuffer } from 'promise-file-reader';
-import creds from './creds.json';
+import {put, takeEvery, all} from 'redux-saga/effects'
+import * as actionTypes from './actions/actionTypes'
+import { readAsArrayBuffer } from 'promise-file-reader'
 const axios = require('axios')
 const deliverySDK = require('contentful');
-const managementSDK= require('contentful-management');
+const managementSDK= require('contentful-management')
 
 const client = deliverySDK.createClient({
-    space: creds.spaceID,
-    accessToken: creds.deliveryToken
+    space: process.env.spaceID,
+    accessToken: process.env.deliveryToken
 });
 const managementClient = managementSDK.createClient({
-    space: creds.spaceID,
-    accessToken: creds.publishToken
+    space: process.env.spaceID,
+    accessToken: process.env.publishToken
   });
 
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
     console.log(entry.sys.id)
-    let entryFields = {};
+    let entryFields = {}
     switch (action.contentType) {
         case 'walkthrough':
             const videoAsset = yield client.getAsset(entry.fields.video.sys.id)
@@ -49,16 +48,16 @@ function* getEntrySaga(action) {
             };
             break;
         default:
-            entryFields = {};
+            entryFields = {}
             break;
     }
-    yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields});
+    yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
 function* getEntriesSaga(action) {
     let contentType = '';
-    if (action.contentType.includes('1')) { contentType = 'process' };
-    if (action.contentType.includes('2')) { contentType = 'walkthrough' };
+    if (action.contentType.includes('1')) { contentType = 'process' }
+    if (action.contentType.includes('2')) { contentType = 'walkthrough' }
     const searchObject = {
         'content_type': contentType,
         'fields.team': action.tabName
@@ -101,7 +100,7 @@ function* createUploadSaga(action) {
     const instance = axios.create({
         baseURL: ` https://upload.contentful.com/spaces/dbqktrvlm9hp/uploads`,
         timeout: 999999,
-        Auth: creds.publishToken,
+        Auth: process.env.publishToken,
         headers: {
             'Content-Type': 'application/octet-stream',
             'Authorization': 'Bearer CFPAT-1f2d55a62d1a9e24ce7d15b8ea95cf0eb1ddafb6377c4e5293b9d9f42d06bec1'
