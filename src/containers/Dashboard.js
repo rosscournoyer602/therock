@@ -15,7 +15,7 @@ class Dashboard extends Component {
   render(){
     return (
       <Layout style={style}>
-        <Content>
+        <Content style = {{ backgroundColor: "white " }}>
           <Switch>
     <Route path="/search/:entry" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <Spin />} />
             <Route path="/entries" component={Entries} />

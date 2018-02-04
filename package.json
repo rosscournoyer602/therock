@@ -2,20 +2,18 @@
   "name": "therock",
   "version": "0.1.0",
   "private": true,
-  "version": "0.5.0",
-  "engines": {
-    "node": "9.4.0"
-  },
   "dependencies": {
     "antd": "^2.13.11",
     "axios": "^0.16.2",
     "contentful": "^4.6.4",
     "contentful-management": "^4.1.4",
+    "jquery": "^3.3.1",
     "promise-file-reader": "^1.0.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
     "redux-saga": "^0.15.6"
   },
   "devDependencies": {
@@ -27,5 +25,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "Description: A Knowledge Base site that that allows users to read/create/update/delete two types of content: a process guide and a video walkthrough. Each type of content will belong to a specific business unit of a company. The data models are defined using Contentful, and content will be managed using Contentful's API.",
+  "main": "/Users/Ross/Library/Mobile\\ Documents/com\\~apple\\~CloudDocs/therock/build/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rosscournoyer602/therock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rosscournoyer602/therock/issues"
+  },
+  "homepage": "https://github.com/rosscournoyer602/therock#readme"
 }

@@ -18,7 +18,7 @@ class App extends Component {
             <Navbar/>
           </Header>
           <Layout>
-            <Sider width={224} style={{ background: '#fff' }}>
+            <Sider width={160} style={{ background: '#fff' }}>
               <TabList />
             </Sider>
             <Layout style={{ padding: '24px 24px 24px' }}>

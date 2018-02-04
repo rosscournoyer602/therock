@@ -48,6 +48,7 @@ class TabList extends Component {
           mode="inline" 
           theme="dark"
           style ={{height: '100%'}}
+          inlineIndent = "15"
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
           onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
