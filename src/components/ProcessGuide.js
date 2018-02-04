@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import UpdaterDeleter from '../containers/UpdaterDeleter'
+import style from './style.css'
 
 function ProcessGuide(props) {
     const completionDescription = props.completionDescription.split(/[1-9]\./).map((step, index) => {

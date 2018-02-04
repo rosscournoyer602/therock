@@ -1,6 +1,7 @@
 import React from 'react'
 import UpdaterDeleter from '../containers/UpdaterDeleter'
 import { withRouter } from 'react-router-dom';
+import style from './style.css'
 
 function Walkthrough(props) {
   const src = props.video

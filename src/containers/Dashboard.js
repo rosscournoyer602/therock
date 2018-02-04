@@ -21,8 +21,7 @@ class Dashboard extends Component {
             <Route path="/entries" component={Entries} />
             <Route 
               path="/entry/process/:entry" 
-              render={() => Object.values(this.props.contentDisplayed).length > 0 ? <ProcessGuide 
-                style = {style}
+              render={() => Object.values(this.props.contentDisplayed).length > 0 ? <ProcessGuide
                 title={this.props.contentDisplayed.title}
                 purpose={this.props.contentDisplayed.purpose}
                 responsibleIndividuals={this.props.contentDisplayed.responsibleIndividuals}
@@ -35,8 +34,7 @@ class Dashboard extends Component {
             {/* { this.props.contentDisplayed === {} ? <Spin />: null } */}
             <Route 
               path="/entry/walkthrough/:entry" 
-              render={() => Object.values(this.props.contentDisplayed).length > 0 ? <Walkthrough 
-              style = {style}
+              render={() => Object.values(this.props.contentDisplayed).length > 0 ? <Walkthrough
               title={this.props.contentDisplayed.title}
               video={this.props.contentDisplayed.video}/>: <Spin />}>
               {/* Need to render the rest of the fields here */}
