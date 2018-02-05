@@ -6,12 +6,12 @@ const deliverySDK = require('contentful');
 const managementSDK= require('contentful-management')
 
 const client = deliverySDK.createClient({
-    space: process.env.spaceID,
-    accessToken: process.env.deliveryToken
+    space: process.env.REACT_APP_SPACE_ID,
+    accessToken: process.env.REACT_APP_DELIVERY_TOKEN
 });
 const managementClient = managementSDK.createClient({
-    space: process.env.spaceID,
-    accessToken: process.env.publishToken
+    space: process.env.REACT_APP_SPACE_ID,
+    accessToken: process.env.REACT_APP_PUBLISH_TOKEN
   });
 
 function* getEntrySaga(action) {
