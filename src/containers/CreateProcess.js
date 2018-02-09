@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import createEntry from '../actions/createEntry'
 import createUpload from '../actions/createUpload'
-import uploadsQueued from '../reducers/uploadsQueued'
 import { withRouter } from 'react-router'
 //import style from './style.css'
 const Option = Select.Option;
@@ -100,7 +99,7 @@ class Create extends Component {
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
             })(
-              <Upload name="logo" action={"/"} showUploadList={{showRemoveIcon: false}} customRequest={(e) => this.props.createUpload(e)} listType="text">
+              <Upload multiple name="logo" action={"/"} showUploadList={{showRemoveIcon: false}} customRequest={(e) => this.props.createUpload(e)} listType="text">
                 <Button>
                   <Icon type="upload" /> Click to upload
                 </Button>
@@ -123,7 +122,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { uploadsQueued: uploadsQueued }
+  return { uploadsQueued: state.uploadsQueued }
 }
 
 const CreateEntry = Form.create()(Create)

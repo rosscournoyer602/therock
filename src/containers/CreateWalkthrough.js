@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import createEntry from '../actions/createEntry'
 import createUpload from '../actions/createUpload'
 import { withRouter } from 'react-router'
+import { error } from 'util';
 const Option = Select.Option;
 const { TextArea } = Input
 const FormItem = Form.Item
@@ -78,7 +79,7 @@ class Create extends Component {
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
             })(
-              <Upload name="logo" action={"/"} multiple showUploadList={{showRemoveIcon: false}} customRequest={(e) => this.props.createUpload(e)} listType="text" >
+              <Upload multiple accept='video/*' name="logo" action={"/"} multiple showUploadList={{showRemoveIcon: false}} customRequest={(e) => this.props.createUpload(e)} listType="text" >
                 <Button>
                   <Icon type="upload" /> Click to upload
                 </Button>

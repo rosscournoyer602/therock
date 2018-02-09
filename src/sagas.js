@@ -16,7 +16,6 @@ const managementClient = managementSDK.createClient({
 
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
-    console.log(entry.sys.id)
     let entryFields = {}
     switch (action.contentType) {
         case 'walkthrough':
@@ -33,11 +32,17 @@ function* getEntrySaga(action) {
         case 'process':
             //relevant documents not getting into state
             console.log(entry)
+            let files
+            if(entry.fields.relevantDocuments) {
+                files = yield all(entry.fields.relevantDocuments.map((file) => {
+                    return client.getAsset(file.sys.id)
+                }))
+            }
             entryFields = {
                 title: entry.fields.title,
                 purpose: entry.fields.purpose,
                 responsibleIndividuals: entry.fields.responsibleIndividuals,
-                // relevantDocuments: entry.fields.relevantDocuments,
+                relevantDocuments: files,
                 handoffs: entry.fields.handoffs,
                 completionDescription: entry.fields.completionDescription,
                 measuresOfSuccess: entry.fields.measuresOfSuccess,
@@ -181,12 +186,13 @@ function* createEntrySaga(action) {
           break;
         case 'process':
           let assets
-          //Upload files like you do videos
-          if (action.payload.assets.length > 0) {
-            assets = action.payloads.assets.map((asset) => {
-            return assets
+          console.log(action.payload)
+          if (action.payload.assets) {
+            assets = action.payload.assets.map((asset) => {
+            return { sys: {type: "Link", linkType: "Asset", id: asset.sys.id}}
           })
           }
+          console.log(assets)
           fields = {
             title: {
                 "en-US": action.payload.title
@@ -220,6 +226,7 @@ function* createEntrySaga(action) {
     })
     const publishedEntry = yield entryCreated.publish()
     console.log(publishedEntry)
+    yield put({type: actionTypes.CLEAR_UPLOADS})
 
 }
 
