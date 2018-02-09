@@ -233,9 +233,8 @@ function* createEntrySaga(action) {
 function* deleteEntrySaga(action) {
     const space = yield managementClient.getSpace()
     const entry = yield space.getEntry(action.payload)
-    //console.log(action.payload)
     const unpublishedEntry = yield entry.unpublish()
-    unpublishedEntry.delete()
+    // unpublishedEntry.delete()
     yield put({type: actionTypes.CLEAR_DISPLAY})
 }
 

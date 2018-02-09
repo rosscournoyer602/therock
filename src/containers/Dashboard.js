@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
+import App from '../components/App'
+import NoResults from '../components/NoResults'
 import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
@@ -17,10 +19,10 @@ class Dashboard extends Component {
       <Layout style={style}>
         <Content style = {{ backgroundColor: "white " }}>
           <Switch>
-    <Route path="/search/:entry" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <Spin />} />
-            <Route path="/entries" component={Entries} />
+    <Route path="/search/" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <NoResults />} />
+            <Route path="/entries" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <NoResults />} />
             <Route 
-              path="/entry/process/:entry" 
+              path="/entry/process/" 
               render={() => Object.values(this.props.contentDisplayed).length > 0 ? <ProcessGuide
                 title={this.props.contentDisplayed.title}
                 purpose={this.props.contentDisplayed.purpose}
@@ -28,15 +30,16 @@ class Dashboard extends Component {
                 completionDescription={this.props.contentDisplayed.completionDescription}
                 measures={this.props.contentDisplayed.measuresOfSuccess}
                 team={this.props.contentDisplayed.team}
-                relevantDocuments={this.props.contentDisplayed.relevantDocuments}/> : <Spin />}>
+                relevantDocuments={this.props.contentDisplayed.relevantDocuments}/> : <NoResults />}>
               {/* Need to render the rest of the fields here */}
             </Route>
             {/* { this.props.contentDisplayed === {} ? <Spin />: null } */}
             <Route 
-              path="/entry/walkthrough/:entry" 
+              path="/entry/walkthrough/" 
               render={() => Object.values(this.props.contentDisplayed).length > 0 ? <Walkthrough
               title={this.props.contentDisplayed.title}
-              video={this.props.contentDisplayed.video}/>: <Spin />}>
+              description={this.props.contentDisplayed.description}
+              video={this.props.contentDisplayed.video}/>: <NoResults />}>
               {/* Need to render the rest of the fields here */}
             </Route>
             <Route path="/add" component={ToggleCreate} />

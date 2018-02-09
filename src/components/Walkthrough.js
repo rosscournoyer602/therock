@@ -11,7 +11,11 @@ function Walkthrough(props) {
           <h2 className="processFieldHeader">{props.title}</h2>
         </div>
         <div className="processField">
-          <video src={src} width="650px" controls></video>
+          <h2 className="processFieldHeader">Description</h2>
+          <p className="processFieldText">{props.description}</p>
+        </div>
+        <div className="processField">
+          <video src={src} width="100%" controls></video>
         </div>
         <UpdaterDeleter />
       </div>

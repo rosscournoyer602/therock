@@ -10,7 +10,7 @@ class Searchbar extends Component {
 
     searchAndReset(value) {
         this.props.searchEntries(value)
-        this.props.history.push(`/search/${value}`)
+        this.props.history.push(`/search/`)
     }
     
     render() {
