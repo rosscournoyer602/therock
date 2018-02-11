@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 import App from '../components/App'
 import NoResults from '../components/NoResults'
+import Landing from '../components/Landing'
 import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
@@ -19,7 +20,7 @@ class Dashboard extends Component {
       <Layout style={style}>
         <Content style = {{ backgroundColor: "white " }}>
           <Switch>
-    <Route path="/search/" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <NoResults />} />
+            <Route path="/search/" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <NoResults />} />
             <Route path="/entries" render={() => this.props.entriesDisplayed.length > 0 ? <Entries />: <NoResults />} />
             <Route 
               path="/entry/process/" 
@@ -43,6 +44,7 @@ class Dashboard extends Component {
               {/* Need to render the rest of the fields here */}
             </Route>
             <Route path="/add" component={ToggleCreate} />
+            <Route path="/" component={Landing} />
           </Switch>
         </Content>
       </Layout>

@@ -48,6 +48,12 @@ class Create extends Component {
     const textAreaStyle = {width: "100%", resize: "vertical"}
     return (
       <div>
+        <br />
+        <h1 className="processFieldTitle">Create a Process Guide</h1>
+        <p className="processFieldText"> 
+          A Process Guide is a set of replicable instructions explaining a standard operating procedure. See input fields for formatting tips.
+        </p>
+        <br />
         <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
           <FormItem label="Title:">
             {getFieldDecorator('title', 

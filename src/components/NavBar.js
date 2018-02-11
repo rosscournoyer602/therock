@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Row, Col } from 'antd';
 import { Link } from 'react-router-dom'
 import Searchbar from '../containers/Searchbar'
+import style from './style.css'
 
 //Top Navbar
 export default class Navbar extends Component {
@@ -22,14 +23,14 @@ export default class Navbar extends Component {
       <Row align="middle" justify="end">
         <Col span={10}>
           <div> 
-            <Link to="/"><img src={require("../therock.png")} alt="" /></Link>
+            <Link to="/"><img height="47px" src={require("../logoWhite.png")} alt="" /></Link>
           </div>
         </Col>
         <Col span={8} push={4}>
-          <Menu selectable={false} theme="dark" mode="horizontal" style={style}>
+          <Menu className="menuText" selectable={false} theme="dark" mode="horizontal" style={style}>
             <Menu.Item>
               <Link to="/add">
-              Create
+              Add Content
               </Link>
             </Menu.Item>
             <Menu.Item>

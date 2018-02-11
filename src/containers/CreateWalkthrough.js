@@ -48,23 +48,29 @@ class Create extends Component {
     const textAreaStyle = {width: "100%", resize: "vertical"}
     return (
       <div>
+        <br />
+        <h1 className="processFieldTitle">Create a Video Walkthrough</h1>
+        <p className="processFieldText"> 
+          A video Walkthrough is used to demonstrate a process visually. Make sure to give a clear description of that we will learn from the video.
+        </p>
+        <br />
         <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
           <FormItem label="Title:">
             {getFieldDecorator('title', 
             {rules:[{type: 'string', message: 'Title must be a string!'}, 
             {required: true, message: 'Must enter a Title!'} ] })(
-              <Input placeholder="Adding a Process to The Rock" style={inputStyle} />)}
+              <Input placeholder="Publishing a wWebsite Update" style={inputStyle} />)}
           </FormItem>
           <FormItem label="Description:">
             {getFieldDecorator('description', 
             {rules:[{type: 'string', message: 'Description must must be a string!'}, 
             {required: true, message: 'Must enter a description!'} ] })(
-              <TextArea placeholder="1. Everyone formats their entries properly" 
+              <TextArea placeholder="We will learn how to make edits to the website appear live on our domain." 
                       style={textAreaStyle} autosize={{ minRows: 4, maxRows: 6 }} />)}
           </FormItem>
           <FormItem label="Team">
             {getFieldDecorator('team', 
-            {rules:[{type: 'string', message: 'Description must be a string!'}, 
+            {rules:[{type: 'string', message: ''}, 
             {required: true, message: 'Must enter team!'} ] })(
             <Select style={{ width:140 }}>
               <Option value="Community">Community</Option>

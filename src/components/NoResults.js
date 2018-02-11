@@ -14,9 +14,15 @@ class NoResults extends Component {
         }
     }
     componentDidMount() {
-        setTimeout(() => { this.setState({displayText: 'No Results Found. Returning to Main Page.'}) }, 10000);
-        setTimeout(() => { this.props.history.push('/') }, 15000);
+        this.noResultTimeout = window.setTimeout(() => { this.setState({displayText: 'No Results Found. Returning to Main Page.'}) }, 10000);
+        this.redirectTimeout = window.setTimeout(() => this.setState({ redirect: true }), 15000)
     }
+
+    componentWillUnmount() {
+        window.clearTimeout(this.redirectTimeout)
+        window.clearTimeout(this.noResultTimeout)
+    }
+
     render() {
       let redirect
       if (this.state.redirect === true) {
@@ -24,6 +30,7 @@ class NoResults extends Component {
       }
       return (
           <span>
+            <p className="processFieldText">Fetching Results...</p>
             <Spin />
             <p className="processFieldText">{this.state.displayText}</p>
             <div>{redirect}</div>

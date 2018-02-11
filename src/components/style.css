@@ -14,8 +14,8 @@
 }
 
 @font-face {
-    font-family: Montserrat-LightItalic;
-    src: url("../fonts/Montserrat-LightItalic.otf") format("opentype");
+    font-family: Montserrat-Light;
+    src: url("../fonts/Montserrat-Light.otf") format("opentype");
 }
 @font-face {
     font-family: Montserrat-Medium;
@@ -54,6 +54,10 @@
 .processFieldText {
     font-family: "Montserrat-Regular";
     font-size: 16px
+}
+
+.menuText {
+    font-family: "Montserrat-Light";
 }
 
 

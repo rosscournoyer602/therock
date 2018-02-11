@@ -18,7 +18,6 @@ function ProcessGuide(props) {
 
   let measures
   if (props.measures[0].indexOf('1.') >= 0 || props.measures.indexOf('01.') >= 0) {
-    console.log('YEP')
     measures = props.measures[0].split(/[1-9]\./).map((step, index) => {
       return <li className="processList" key={index}>{step}</li>
     })
@@ -26,15 +25,27 @@ function ProcessGuide(props) {
   }
   else measures = props.measures
 
+  let responsibleIndividuals
+  if (props.responsibleIndividuals.indexOf(',') >= 0) {
+    measures = props.responsibleIndividuals.split(/,/).map((step, index) => {
+      return <li className="processList" key={index}>{step}</li>
+    })
+    responsibleIndividuals.shift()
+  }
+
   let files
   if (props.relevantDocuments) {
     files = props.relevantDocuments.map((file) => {
       const linkURL = `https://${file.fields.file.url.substring(2)}`
-      return <Col key={file.sys.id} span={8}>
-              <a href={linkURL}>
-                <Card style={{ width: "150px"}}title={file.sys.id} bordered={false}>Card content</Card>
-              </a>
-             </Col>
+      return (
+        <Col key={file.sys.id} span={8}>
+          <a href={linkURL}>
+            <Card className="menuText" style={{ width: "150px"}}title={file.fields.title} bordered={false}>
+              <p>{file.fields.file.details.contentType}</p>
+            </Card>
+          </a>
+        </Col>
+      )
     })
   }
   else {
