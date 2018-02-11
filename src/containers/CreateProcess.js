@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import createEntry from '../actions/createEntry'
 import createUpload from '../actions/createUpload'
 import { withRouter } from 'react-router'
-//import style from './style.css'
+import style from './style.css'
 const Option = Select.Option;
 const { TextArea } = Input
 const FormItem = Form.Item
@@ -54,7 +54,7 @@ class Create extends Component {
           A Process Guide is a set of replicable instructions explaining a standard operating procedure. See input fields for formatting tips.
         </p>
         <br />
-        <Form id="form" layout="vertical" onSubmit={this.handleSubmit}>
+        <Form className="menuText"id="form" layout="vertical" onSubmit={this.handleSubmit}>
           <FormItem label="Title:">
             {getFieldDecorator('title', 
             {rules:[{type: 'string', message: 'Title must be a string!'}, 

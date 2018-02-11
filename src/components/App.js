@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
         <Layout style={{ "minHeight": "800px", height: "auto"}}>
-          <Header className="Header" style={{padding:0}}>
+          <Header className="Header" height={200}style={{padding:0}}>
             <Navbar/>
           </Header>
           <Layout>

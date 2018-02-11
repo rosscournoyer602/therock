@@ -58,6 +58,11 @@
 
 .menuText {
     font-family: "Montserrat-Light";
+    font-size: 14px
+}
+
+.buttonText {
+    font-family: "Montserrat-Medium";
 }
 
 

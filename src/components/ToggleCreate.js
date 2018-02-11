@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Radio } from 'antd'
 import CreateProcess from '../containers/CreateProcess'
 import CreateWalkthrough from '../containers/CreateWalkthrough'
+import style from './style.css'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -12,7 +13,7 @@ function toggleCreate(props) {
     return (
       <div>
         <div className="toggle">
-          <RadioGroup size="large">
+          <RadioGroup className="buttonText" size="large">
             <Link to="/add/process">
               <RadioButton value="a">Process Guide</RadioButton>
             </Link>
