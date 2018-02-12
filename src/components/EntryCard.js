@@ -5,14 +5,14 @@ import style from './style.css'
 
 function entryCard(props) {
     const cardRoute = `/entry/${props.type}`
-    
+    console.log(props)
     return (
       <div>
         <Link to={cardRoute}>
           <Card className="menuText" title={`${props.title} (${props.team} Team)`} 
                 bordered={true}
                 style={{ width: '100%', margin: 'auto'}}>
-              <p>{props}</p>
+              <p>{props.description}</p>
           </Card>
         </Link>
       </div>

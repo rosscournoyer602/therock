@@ -13,7 +13,7 @@ class Entries extends Component {
         <li style={style} key={item.title} onClick={() => this.props.getEntry(item.id, item.type)}>
           <EntryCard 
             title={item.title} 
-            purpose={item.purpose} 
+            description={item.description} 
             id={item.id}
             team={item.team} 
             type={item.type}/>
