@@ -38,13 +38,13 @@ function ProcessGuide(props) {
     files = props.relevantDocuments.map((file) => {
       const linkURL = `https://${file.fields.file.url.substring(2)}`
       return (
-        <Col key={file.sys.id} span={8}>
+        <li className="fileCard" key={file.sys.id} span={8}>
           <a href={linkURL}>
-            <Card className="menuText" style={{ width: "150px"}}title={file.fields.title} bordered={false}>
-              <p>{file.fields.file.details.contentType}</p>
+            <Card className="menuText" title={file.fields.title}>
+              <p>{file.fields.file.contentType}</p>
             </Card>
           </a>
-        </Col>
+        </li>
       )
     })
   }
@@ -80,7 +80,7 @@ function ProcessGuide(props) {
       <br />
       <div className="processField">
         <h2 className="processFieldHeader">Relevant Documents</h2>
-        <Row gutter={16}>{files}</Row>
+        <ul >{files}</ul>
       </div>
       <UpdaterDeleter />
     </div>

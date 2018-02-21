@@ -14,13 +14,8 @@ class Searchbar extends Component {
     }
     
     render() {
-        const style = {
-            margin: 'auto 24px auto 32px'
-        }
         return (
-          <div style={style}>
             <Search onSearch={(value) => this.searchAndReset(value)}/>
-          </div>
         )
     }
 }
