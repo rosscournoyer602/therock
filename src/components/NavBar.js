@@ -3,6 +3,7 @@ import { Menu, Row, Col } from 'antd';
 import { Link } from 'react-router-dom'
 import Searchbar from '../containers/Searchbar'
 import style from './style.css'
+import Flexbox from 'flexbox-react'
 
 //Top Navbar
 export default class Navbar extends Component {
@@ -17,16 +18,18 @@ export default class Navbar extends Component {
   render() {
     const style = {
       margin: 'auto',
-      lineHeight: '64px'
+      lineHeight: '64px',
+      width: '100%'
     }
     return (
-      <Row align="middle" justify="end">
-        <Col span={10}>
-          <div> 
-            <Link to="/"><img height="47px" src={require("../logoWhite.png")} alt="" /></Link>
-          </div>
-        </Col>
-        <Col span={8} push={4}>
+      <Flexbox 
+        className="header" 
+        flexDirection="row"
+        justifyContent="space-between">
+        <div> 
+          <Link to="/"><img width="220px" src={require("../logoWhite.png")} alt="" /></Link>
+        </div>
+        <div>
           <Menu className="menuText" selectable={false} theme="dark" mode="horizontal" style={style}>
             <Menu.Item>
               <Link to="/add">
@@ -39,11 +42,11 @@ export default class Navbar extends Component {
               </Link>
             </Menu.Item>
           </Menu>
-        </Col>
-        <Col span={6}>
-            <Searchbar />
-        </Col>
-      </Row>
+        </div>
+        <div>
+          <Searchbar />
+        </div>
+      </Flexbox>
     )
   }
 }

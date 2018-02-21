@@ -3,8 +3,10 @@ import TabList from '../containers/TabList'
 import Dashboard from '../containers/Dashboard'
 import { Route } from 'react-router-dom'
 import Navbar from './NavBar'
+import Flexbox from 'flexbox-react'
 import { Layout } from 'antd'
 import createHistory from 'history/createBrowserHistory'
+const style = './style.css'
 const { Header, Content, Sider } = Layout
 const history = createHistory()
 
@@ -12,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-        <Layout style={{ "minHeight": "800px", height: "auto"}}>
+        <Layout className="mainLayout" style={{ "minHeight": "800px", height: "auto"}}>
           <Header className="Header" style={{padding:0}}>
             <Navbar/>
           </Header>
@@ -21,7 +23,7 @@ class App extends Component {
               <TabList />
             </Sider>
             <Layout style={{ padding: '24px 24px 24px' }}>
-              <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+              <Content className="entryContent">
                 <Dashboard />
               </Content>
             </Layout>

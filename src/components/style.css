@@ -43,12 +43,13 @@
     font-size: 32px;
     /* margin-left: 100px;
     margin-right: auto; */
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 
 .processFieldHeader {
     font-family: "Montserrat-Bold";
-    font-size: 28px
+    font-size: 28px;
+    margin-bottom: .5rem;
 }
 
 .processFieldText {
@@ -66,3 +67,22 @@
 }
 
 
+.mainLayout {
+    min-height: 80rem;
+}
+
+.fileCard {
+    width: 30%;
+    text-decoration: none;
+}
+
+.entryContent {
+    background-color: #fff;
+    padding: 2.4rem; 
+    margin: 0;
+}
+
+.header {
+    width: 100%;
+    padding: 0 1rem;
+}
