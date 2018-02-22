@@ -5,6 +5,7 @@ import selectTab from '../actions/selectTab'
 import getEntries from '../actions/getEntries'
 import clearEntries from '../actions/clearEntries'
 import clearDisplay from '../actions/clearDisplay'
+import getAllContent from '../actions/getAllContent'
 import { Link, withRouter } from 'react-router-dom';
 import { Menu } from 'antd'
 import 'antd/dist/antd.css'
@@ -32,39 +33,41 @@ class TabList extends Component {
     })
     this.rootTabItems = Object.values(props.tabs)
   }
+  componentDidMount() {
+    this.props.getAllContent()
+  }
+  onOpenChange = (openKeys) => {
+    this.props.clearDisplay()
+    this.props.clearEntries()
+    this.props.history.push('/')
 
-    onOpenChange = (openKeys) => {
-      this.props.clearDisplay()
-      this.props.clearEntries()
-      this.props.history.push('/')
-
-      const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
-      this.setState(
-        {openKeys: latestOpenKey ? [latestOpenKey] : []}
-      )
-    }
-    render() {
-      return (
-        <Menu 
-          className="menuText"
-          mode="inline" 
-          theme="dark"
-          style ={{height: '100%'}}
-          inlineIndent = "15"
-          openKeys={this.state.openKeys}
-          onOpenChange={this.onOpenChange}
-          onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
-          { this.tabItems }
-        </Menu>
-      )
-    }
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
+    this.setState(
+      {openKeys: latestOpenKey ? [latestOpenKey] : []}
+    )
+  }
+  render() {
+    return (
+      <Menu 
+        className="menuText"
+        mode="inline" 
+        theme="dark"
+        style ={{height: '100%'}}
+        inlineIndent = "15"
+        openKeys={this.state.openKeys}
+        onOpenChange={this.onOpenChange}
+        onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
+        { this.tabItems }
+      </Menu>
+    )
+  }
 }
 
 function mapStateToProps(state) {
   return { tabs: state.tabs, tabSelected: state.tabSelected}
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { selectTab, getEntries, clearDisplay, clearEntries }, dispatch)
+  return bindActionCreators( { selectTab, getEntries, clearDisplay, clearEntries, getAllContent }, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TabList))

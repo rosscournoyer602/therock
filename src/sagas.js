@@ -14,6 +14,8 @@ const managementClient = managementSDK.createClient({
     accessToken: process.env.REACT_APP_PUBLISH_TOKEN
   });
 
+
+  //async calls
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
     let entryFields = {}
@@ -90,11 +92,11 @@ function* getEntriesSaga(action) {
     //     }
     //   })
     // }
-    yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles });
+    yield put({ type: actionTypes.DISPLAY_ENTRIES, payload: entryTitles })
 }
 
 function* searchEntriesSaga(action) {
-    const searchResults = yield client.getEntries({query: action.payload});
+    const searchResults = yield client.getEntries({query: action.payload})
     //[ISSUE] possibly redundant, could use getProcessEntries saga
     const searchTitles = searchResults.items.map((entry) => {
         return {
@@ -106,6 +108,29 @@ function* searchEntriesSaga(action) {
         };
     });
     yield put ({type: actionTypes.DISPLAY_SEARCH, payload: searchTitles});
+}
+
+function* getAllContentSaga(action) {
+    const allContent = yield client.getEntries()
+    let contentStats = {}
+
+    allContent.items.forEach((item) => {
+        if (!contentStats.hasOwnProperty(item.fields.team)) {
+            Object.defineProperty(contentStats, [item.fields.team], {
+                value: { processes: 0, walkthroughs: 0},
+                writable: true
+            })
+        }
+        if(item.sys.contentType.sys.id === 'process') {
+            ++contentStats[item.fields.team].processes
+        }
+        if(item.sys.contentType.sys.id === 'walkthrough') {
+            ++contentStats[item.fields.team].walkthroughs
+        }
+    })
+    console.log(contentStats)
+    //how to wait for this to come back
+    yield put ({type: actionTypes.UPDATE_ALL_CONTENT, payload: contentStats})
 }
 
 function* createUploadSaga(action) {
@@ -249,7 +274,7 @@ function* deleteEntrySaga(action) {
     yield put({type: actionTypes.CLEAR_DISPLAY})
 }
 
-//listen for actions and call sagas
+//watch for actions
 function* watchGetEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getEntrySaga);
 }
@@ -271,8 +296,11 @@ function* watchCreateUploadSaga() {
 }
 
 function* watchDeleteEntrySaga() {
-
     yield takeEvery(actionTypes.DELETE_ENTRY, deleteEntrySaga)
+}
+
+function* watchGetAllContentSaga() {
+    yield takeEvery(actionTypes.GET_ALL_CONTENT, getAllContentSaga)
 }
 
 export default function* rootSaga() {
@@ -282,6 +310,7 @@ export default function* rootSaga() {
         watchSearchEntriesSaga(),
         watchCreateEntrySaga(),
         watchCreateUploadSaga(),
-        watchDeleteEntrySaga()
+        watchDeleteEntrySaga(),
+        watchGetAllContentSaga()
     ])
 }

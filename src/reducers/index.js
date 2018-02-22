@@ -4,6 +4,7 @@ import contentDisplayed from './contentDisplayed'
 import entriesDisplayed from './entriesDisplayed'
 import searchDisplayed from './searchDisplayed'
 import uploadsQueued from './uploadsQueued'
+import allContent from './allContent'
 import tabs from './tabs'
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     entriesDisplayed,
     searchDisplayed,
     uploadsQueued,
+    allContent,
     tabs
 })
 
