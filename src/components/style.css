@@ -54,7 +54,8 @@
 
 .processFieldText {
     font-family: "Montserrat-Regular";
-    font-size: 16px
+    font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .menuText {
