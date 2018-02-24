@@ -39,7 +39,7 @@ function ProcessGuide(props) {
       const linkURL = `https://${file.fields.file.url.substring(2)}`
       return (
         <li className="fileCard" key={file.sys.id} span={8}>
-          <a href={linkURL}>
+          <a target="_blank" href={linkURL}>
             <Card className="menuText" title={file.fields.title}>
               <p>{file.fields.file.contentType}</p>
             </Card>
