@@ -17,25 +17,44 @@ class TabList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      openKeys: []
+      openKeys: [],
+      tabItems: []
     }
-    this.tabItems = Object.values(props.tabs).map((tab) => {
+    
+    //this.rootTabItems = Object.values(props.tabs)
+  }
+  populateTabs(allContent) {
+    let teamTotal = 0
+    let processes = 0
+    let walkthroughs = 0
+
+    const tabItems = Object.values(this.props.tabs).map((tab, index) => {
+      if(this.props.allContent.hasOwnProperty('processCount')) {
+        teamTotal = this.props.allContent.processCount[index] + this.props.allContent.walkthroughCount[index]
+        processes = this.props.allContent.processCount[index]
+        walkthroughs = this.props.allContent.walkthroughCount[index]
+      }
+      const route = `/entries/${tab.toLowerCase()}`
       return (
         <SubMenu
           key={tab} 
           onTitleClick={() => this.props.selectTab(tab)}
-          title={tab}>
-            <Menu.Item key={tab + '1'}><Link to="/entries">Process Guides</Link></Menu.Item>
-            <Menu.Item key={tab + '2'}><Link to="/entries">Walkthroughs</Link></Menu.Item>
+          title={tab + ' ' + '(' + teamTotal + ')'}>
+            <Menu.Item key={tab + '1'}><Link to={route}>{'Process Guides' + ' ' + '(' + processes + ')'}</Link></Menu.Item>
+            <Menu.Item key={tab + '2'}><Link to={route}>{'Walkthroughs' + ' ' +  '(' + walkthroughs + ')'}</Link></Menu.Item>
         </SubMenu>
 
       )
     })
-    this.rootTabItems = Object.values(props.tabs)
+    this.setState({tabItems: tabItems})
   }
   componentDidMount() {
-    this.props.getAllContent()
+    this.props.getAllContent(this.props.tabs)
   }
+  componentWillReceiveProps(nextProps) {
+    this.populateTabs()
+  }
+
   onOpenChange = (openKeys) => {
     this.props.clearDisplay()
     this.props.clearEntries()
@@ -57,17 +76,25 @@ class TabList extends Component {
         openKeys={this.state.openKeys}
         onOpenChange={this.onOpenChange}
         onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
-        { this.tabItems }
+        { this.state.tabItems }
       </Menu>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return { tabs: state.tabs, tabSelected: state.tabSelected}
+  return { tabSelected: state.tabSelected, allContent: state.allContent, tabs: state.tabs }
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators( { selectTab, getEntries, clearDisplay, clearEntries, getAllContent }, dispatch)
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TabList))
+
+
+// if(this.state.contentCount.hasOwnProperty('processCount')) {
+//   console.log('yes')
+//   teamTotal = this.state.processCount[index] + this.state.walkthroughCount[index]
+//   processes = this.state.processCount[index]
+//   walkthroughs = this.state.walkthroughCount[index]
+// }
