@@ -98,6 +98,7 @@ class Create extends Component {
               <Option value="People">People</Option>
               <Option value="Experience">Experience</Option>
               <Option value="Brand">Brand</Option>
+              <Option value="Executive">Executive</Option>
             </Select>)}
           </FormItem>
           <FormItem label="Relevant Files">

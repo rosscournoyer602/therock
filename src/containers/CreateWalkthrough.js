@@ -59,7 +59,7 @@ class Create extends Component {
             {getFieldDecorator('title', 
             {rules:[{type: 'string', message: 'Title must be a string!'}, 
             {required: true, message: 'Must enter a Title!'} ] })(
-              <Input placeholder="Publishing a wWebsite Update" style={inputStyle} />)}
+              <Input placeholder="Publishing a Website Update" style={inputStyle} />)}
           </FormItem>
           <FormItem label="Description:">
             {getFieldDecorator('description', 
@@ -78,6 +78,7 @@ class Create extends Component {
               <Option value="People">People</Option>
               <Option value="Experience">Experience</Option>
               <Option value="Brand">Brand</Option>
+              <Option value="Executive">Executive</Option>
             </Select>)}
           </FormItem>
           <FormItem label="Video File:">

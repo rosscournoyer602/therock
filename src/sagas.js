@@ -111,26 +111,31 @@ function* searchEntriesSaga(action) {
 }
 
 function* getAllContentSaga(action) {
-    const allContent = yield client.getEntries()
-    let contentStats = {}
-
-    allContent.items.forEach((item) => {
-        if (!contentStats.hasOwnProperty(item.fields.team)) {
-            Object.defineProperty(contentStats, [item.fields.team], {
-                value: { processes: 0, walkthroughs: 0},
-                writable: true
-            })
+    const teams = Object.values(action.payload)
+    
+    const processes = yield all(teams.map((team) => {
+        const processSearchObject = {
+            'fields.team': team,
+            'content_type': 'process'
         }
-        if(item.sys.contentType.sys.id === 'process') {
-            ++contentStats[item.fields.team].processes
+        return client.getEntries(processSearchObject)
+    }))
+    const walkthroughs = yield all(teams.map((team) => {
+        const walkthroughSearchObject = {
+            'fields.team': team,
+            'content_type': 'walkthrough'
         }
-        if(item.sys.contentType.sys.id === 'walkthrough') {
-            ++contentStats[item.fields.team].walkthroughs
-        }
+        return client.getEntries(walkthroughSearchObject)
+    }))
+    const processCount = processes.map((team) => {
+           return team.items.length
     })
-    console.log(contentStats)
-    //how to wait for this to come back
-    yield put ({type: actionTypes.UPDATE_ALL_CONTENT, payload: contentStats})
+    const walkthroughCount = walkthroughs.map((team) => {
+            return team.items.length
+     })
+    const allContent = {processCount, walkthroughCount}
+
+    yield put ({type: actionTypes.UPDATE_ALL_CONTENT, payload: allContent})
 }
 
 function* createUploadSaga(action) {
