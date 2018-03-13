@@ -1,5 +1,4 @@
 import {put, takeEvery, all} from 'redux-saga/effects'
-import { delay } from 'redux-saga'
 import * as actionTypes from './actions/actionTypes'
 import { readAsArrayBuffer } from 'promise-file-reader'
 const axios = require('axios')
@@ -16,6 +15,7 @@ const managementClient = managementSDK.createClient({
   });
 
 
+  //async calls
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
     let entryFields = {}
@@ -111,31 +111,26 @@ function* searchEntriesSaga(action) {
 }
 
 function* getAllContentSaga(action) {
-    const teams = Object.values(action.payload)
-    
-    const processes = yield all(teams.map((team) => {
-        const processSearchObject = {
-            'fields.team': team,
-            'content_type': 'process'
-        }
-        return client.getEntries(processSearchObject)
-    }))
-    const walkthroughs = yield all(teams.map((team) => {
-        const walkthroughSearchObject = {
-            'fields.team': team,
-            'content_type': 'walkthrough'
-        }
-        return client.getEntries(walkthroughSearchObject)
-    }))
-    const processCount = processes.map((team) => {
-           return team.items.length
-    })
-    const walkthroughCount = walkthroughs.map((team) => {
-            return team.items.length
-     })
-    const allContent = {processCount, walkthroughCount}
+    const allContent = yield client.getEntries()
+    let contentStats = {}
 
-    yield put ({type: actionTypes.UPDATE_ALL_CONTENT, payload: allContent})
+    allContent.items.forEach((item) => {
+        if (!contentStats.hasOwnProperty(item.fields.team)) {
+            Object.defineProperty(contentStats, [item.fields.team], {
+                value: { processes: 0, walkthroughs: 0},
+                writable: true
+            })
+        }
+        if(item.sys.contentType.sys.id === 'process') {
+            ++contentStats[item.fields.team].processes
+        }
+        if(item.sys.contentType.sys.id === 'walkthrough') {
+            ++contentStats[item.fields.team].walkthroughs
+        }
+    })
+    console.log(contentStats)
+    //how to wait for this to come back
+    yield put ({type: actionTypes.UPDATE_ALL_CONTENT, payload: contentStats})
 }
 
 function* createUploadSaga(action) {
