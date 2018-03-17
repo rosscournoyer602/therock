@@ -5,6 +5,7 @@ import entriesDisplayed from './entriesDisplayed'
 import searchDisplayed from './searchDisplayed'
 import uploadsQueued from './uploadsQueued'
 import allContent from './allContent'
+import authStatus from './authenticated'
 import tabs from './tabs'
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     searchDisplayed,
     uploadsQueued,
     allContent,
-    tabs
+    tabs,
+    authStatus
 })
 
 export default rootReducer

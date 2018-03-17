@@ -61,6 +61,18 @@ function* getEntrySaga(action) {
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
+function* authenticateSaga(action) {
+    console.log(action.payload)
+    const query = {
+        'fields.title': action.payload,
+        'fields.valid': 'true',
+        'content_type': 'password'
+    }
+    const passwordCheck = yield client.getEntries(query)
+    const result = passwordCheck.items.length > 0
+    yield put ({type: actionTypes.CHECK_AUTH, payload: result});
+}
+
 function* getEntriesSaga(action) {
     let contentType = '';
     if (action.contentType.includes('1')) { contentType = 'process' }
@@ -308,6 +320,10 @@ function* watchGetAllContentSaga() {
     yield takeEvery(actionTypes.GET_ALL_CONTENT, getAllContentSaga)
 }
 
+function* watchAuthenticateSaga() {
+    yield takeEvery(actionTypes.TRY_LOGIN, authenticateSaga)
+}
+
 export default function* rootSaga() {
     yield all([
         watchGetEntriesSaga(),
@@ -316,6 +332,7 @@ export default function* rootSaga() {
         watchCreateEntrySaga(),
         watchCreateUploadSaga(),
         watchDeleteEntrySaga(),
-        watchGetAllContentSaga()
+        watchGetAllContentSaga(),
+        watchAuthenticateSaga()
     ])
 }

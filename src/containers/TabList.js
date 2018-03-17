@@ -51,7 +51,6 @@ class TabList extends Component {
     this.populateTabs()
   }
   componentWillReceiveProps(nextProps) {
-    console.log('received props')
     this.populateTabs()
   }
   onOpenChange = (openKeys) => {

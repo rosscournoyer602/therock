@@ -9,14 +9,23 @@ import Entries from '../containers/Entries'
 import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
 import ToggleCreate from '../components/ToggleCreate'
+import Login from '../containers/Login'
 import { Layout, Spin } from 'antd'
 import style from './style.css'
 const { Content } = Layout
 
 //Generic display port for all data
 class Dashboard extends Component { 
+
+  // componentDidMount() {
+  //   console.log(this.props.authStatus)
+  //   if (this.props.authStatus !== true) {
+  //     this.props.history.push({ pathname: '/login' })
+  //   }
+  // }
   render(){
     return (
+      this.props.authStatus === false ? <Login /> :
       <Layout style={style}>
         <Content style = {{ backgroundColor: "white " }}>
           <Switch>
@@ -55,7 +64,8 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return {
       entriesDisplayed: state.entriesDisplayed,
-      contentDisplayed: state.contentDisplayed
+      contentDisplayed: state.contentDisplayed,
+      authStatus: state.authStatus
   }
 }
 
