@@ -68,7 +68,7 @@ class Create extends Component {
               <TextArea placeholder="We will learn how to make edits to the website appear live on our domain." 
                       style={textAreaStyle} autosize={{ minRows: 4, maxRows: 6 }} />)}
           </FormItem>
-          <FormItem label="Team">
+          <FormItem label="Section">
             {getFieldDecorator('team', 
             {rules:[{type: 'string', message: ''}, 
             {required: true, message: 'Must enter team!'} ] })(

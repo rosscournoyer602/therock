@@ -88,7 +88,7 @@ class Create extends Component {
             <TextArea placeholder="1. Everyone formats their entries properly" 
                       style={textAreaStyle} autosize={{ minRows: 2, maxRows: 6 }} />)}
           </FormItem>
-          <FormItem label="Team">
+          <FormItem label="Section">
             {getFieldDecorator('team', 
             {rules:[{type: 'string', message: 'Description must be a string!'}, 
             {required: true, message: 'Must enter completion description!'} ] })(

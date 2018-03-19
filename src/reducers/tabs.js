@@ -5,7 +5,7 @@ export default function(){
             clients: "Clients",
             company: "Company",
             people: "People",
-            experience: "Experience",
+            experience: "Experiences",
             design: "Design",
             marketing: "Marketing",
             projects: "Projects"
