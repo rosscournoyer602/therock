@@ -9,7 +9,7 @@ function entryCard(props) {
     return (
       <div>
         <Link to={cardRoute}>
-          <Card className="menuText" title={`${props.title} (${props.team} Team)`} 
+          <Card className="menuText" title={`${props.title} (${props.team})`} 
                 bordered={true}
                 style={{ width: '100%', margin: 'auto'}}>
               <p>{props.description}</p>

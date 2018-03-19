@@ -1,12 +1,14 @@
 export default function(){
     return (
         {
-            community: "Community",
-            executive: "Executive",
-            systems: "Systems",
+            business: "Business",
+            clients: "Clients",
+            company: "Company",
             people: "People",
             experience: "Experience",
-            brand: "Brand",
+            design: "Design",
+            marketing: "Marketing",
+            projects: "Projects"
         }
     )
 }

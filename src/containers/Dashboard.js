@@ -10,6 +10,7 @@ import ProcessGuide from '../components/ProcessGuide'
 import Walkthrough from '../components/Walkthrough'
 import ToggleCreate from '../components/ToggleCreate'
 import Login from '../containers/Login'
+import About from '../components/about'
 import { Layout, Spin } from 'antd'
 import style from './style.css'
 const { Content } = Layout
@@ -52,6 +53,7 @@ class Dashboard extends Component {
               video={this.props.contentDisplayed.video}/>: <NoResults />}>
               {/* Need to render the rest of the fields here */}
             </Route>
+            <Route path="/about" component={About} />
             <Route path="/add" component={ToggleCreate} />
             <Route path="/" component={Landing} />
           </Switch>

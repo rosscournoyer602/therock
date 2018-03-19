@@ -93,12 +93,14 @@ class Create extends Component {
             {rules:[{type: 'string', message: 'Description must be a string!'}, 
             {required: true, message: 'Must enter completion description!'} ] })(
             <Select style={{ width:140 }}>
-              <Option value="Community">Community</Option>
-              <Option value="Systems">Systems</Option>
+              <Option value="Business">Business</Option>
+              <Option value="Clients">Clients</Option>
+              <Option value="Company">Company</Option>
+              <Option value="Design">Design</Option>
+              <Option value="Experiences">Experiences</Option>
               <Option value="People">People</Option>
-              <Option value="Experience">Experience</Option>
-              <Option value="Brand">Brand</Option>
-              <Option value="Executive">Executive</Option>
+              <Option value="Marketing">Marketing</Option>
+              <Option value="Projects">Projects</Option>
             </Select>)}
           </FormItem>
           <FormItem label="Relevant Files">
