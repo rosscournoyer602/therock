@@ -9,6 +9,9 @@ import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from './reducers'
 import rootSaga from './sagas'
+import GoogleAnalytics from 'react-ga';
+
+GoogleAnalytics.initialize('UA-0000000-0');
 
 const sagaMiddleware = createSagaMiddleware()
 

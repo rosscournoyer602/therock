@@ -18,12 +18,6 @@ const { Content } = Layout
 //Generic display port for all data
 class Dashboard extends Component { 
 
-  // componentDidMount() {
-  //   console.log(this.props.authStatus)
-  //   if (this.props.authStatus !== true) {
-  //     this.props.history.push({ pathname: '/login' })
-  //   }
-  // }
   render(){
     return (
       this.props.authStatus === false ? <Login /> :

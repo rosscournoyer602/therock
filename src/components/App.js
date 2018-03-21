@@ -8,6 +8,7 @@ import { Layout } from 'antd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import getAllContent from '../actions/getAllContent'
+import GoogleAnalytics from 'react-ga'
 const style = './style.css'
 const { Header, Content, Sider } = Layout
 
@@ -15,6 +16,8 @@ class App extends Component {
 
   componentDidMount(){
     this.props.getAllContent(this.props.tabs)
+    console.log(window.location.pathname + window.location.search)
+    GoogleAnalytics.pageview(window.location.pathname + window.location.search)
   }
 
   render() {
