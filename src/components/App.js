@@ -17,7 +17,6 @@ class App extends Component {
   componentDidMount(){
     this.props.getAllContent(this.props.tabs)
     console.log(window.location.pathname + window.location.search)
-    GoogleAnalytics.pageview(window.location.pathname + window.location.search)
   }
 
   render() {
