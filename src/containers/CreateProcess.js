@@ -22,7 +22,6 @@ class Create extends Component {
     this.props.form.validateFields((err, values) => {
       values.assets = this.props.uploadsQueued
       values.contentType = 'process'
-      console.log(values)
       this.props.createEntry(values)
       if (err) {
         console.log(err);

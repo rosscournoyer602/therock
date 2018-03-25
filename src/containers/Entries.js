@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 import EntryCard from '../components/EntryCard'
 import getEntry from '../actions/getEntry'
+import getEntries from '../actions/getEntries'
 import style from './style.css'
 
 //Generic list of EntryCard components, used to render entries by team or search results
 class Entries extends Component {
+  
   render(){
     const entries = this.props.entriesDisplayed.map((item) => {
       return (
@@ -36,7 +39,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getEntry }, dispatch)
+  return bindActionCreators( { getEntry, getEntries }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Entries)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Entries))

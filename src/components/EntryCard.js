@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import style from './style.css'
 
 function entryCard(props) {
-    const cardRoute = `/entry/${props.type}`
-    console.log(props)
+    const cardRoute = `/entry/${props.type}/${props.id}`
     return (
       <div>
         <Link to={cardRoute}>

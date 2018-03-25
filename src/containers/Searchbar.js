@@ -8,9 +8,17 @@ const Search = Input.Search
 
 class Searchbar extends Component {
 
+    componentDidMount() {
+    if (this.props.location.pathname.indexOf('/search/') !== -1) {
+            this.props.searchEntries(this.props.location.pathname.substring(8))
+        }
+        console.log(this.props)
+        // if(this.props.entriesDisplayed.length === 0)
+    }
+
     searchAndReset(value) {
         this.props.searchEntries(value)
-        this.props.history.push(`/search/`)
+        this.props.history.push(`/search/${value}`)
     }
     
     render() {
@@ -19,9 +27,14 @@ class Searchbar extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        entriesDisplayed: state.entriesDisplayed
+    }
+}
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators( { searchEntries }, dispatch)
 }
   
-export default withRouter(connect(null, mapDispatchToProps)(Searchbar))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Searchbar))

@@ -1,11 +1,12 @@
 import { GET_ENTRIES } from './actionTypes'
 
 const getEntries = (tabName, key) => {
-    console.log('Action created: ' + GET_ENTRIES + ' ' + tabName)
+    console.log('this is key')
+    console.log(key)
     return {
         type: GET_ENTRIES,
         tabName: tabName,
-        contentType: key.key
+        contentType: key
     }
 }
 
