@@ -40,7 +40,7 @@ class Dashboard extends Component {
 
   render(){
     return (
-      // this.props.authStatus === false ? <Login /> :
+      this.props.authStatus === false ? <Login /> :
       <Layout style={style}>
         <Content style = {{ backgroundColor: "white " }}>
           <Switch>
