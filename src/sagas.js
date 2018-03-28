@@ -14,7 +14,6 @@ const managementClient = managementSDK.createClient({
     accessToken: process.env.REACT_APP_PUBLISH_TOKEN
   });
 
-
   //async calls
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
@@ -33,7 +32,6 @@ function* getEntrySaga(action) {
             break;
         case 'process':
             //relevant documents not getting into state
-            console.log(entry)
             let files
             if(entry.fields.relevantDocuments) {
                 files = yield all(entry.fields.relevantDocuments.map((file) => {
@@ -62,7 +60,6 @@ function* getEntrySaga(action) {
 }
 
 function* authenticateSaga(action) {
-    console.log(action.payload)
     const query = {
         'fields.title': action.payload,
         'fields.valid': 'true',
@@ -74,15 +71,16 @@ function* authenticateSaga(action) {
 }
 
 function* getEntriesSaga(action) {
-    let contentType = '';
+    console.log(action.contentType)
+    let contentType = ''
     if (action.contentType.includes('1')) { contentType = 'process' }
     if (action.contentType.includes('2')) { contentType = 'walkthrough' }
     const searchObject = {
         'content_type': contentType,
         'fields.team': action.tabName
     };
-
-    const entries = yield client.getEntries(searchObject);
+    console.log(searchObject)
+    const entries = yield client.getEntries(searchObject)
     //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
       return {
@@ -151,7 +149,6 @@ function* getAllContentSaga(action) {
 }
 
 function* createUploadSaga(action) {
-    console.log(action)
     const file = action.payload.file
     const { onSuccess, onProgress, onError } = action.payload
     const fileStream = yield readAsArrayBuffer(file)
@@ -217,7 +214,6 @@ function* createEntrySaga(action) {
         case 'walkthrough':
           assetID = action.payload.assets[0].sys.id
           const videoAsset = yield client.getAsset(assetID)
-          console.log(videoAsset)
             fields = {
               title: {
                 "en-US": action.payload.title
@@ -239,7 +235,6 @@ function* createEntrySaga(action) {
           break;
         case 'process':
           let assets
-          console.log(action.payload)
           if (action.payload.assets) {
             assets = action.payload.assets.map((asset) => {
             return { sys: {type: "Link", linkType: "Asset", id: asset.sys.id}}

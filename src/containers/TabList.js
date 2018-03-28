@@ -21,7 +21,7 @@ class TabList extends Component {
     }
    
   }
-  populateTabs() {
+  populateTabs(tab) {
     let teamTotal = 0
     let processes = 0
     let walkthroughs = 0
@@ -32,14 +32,14 @@ class TabList extends Component {
         processes = this.props.allContent.processCount[index]
         walkthroughs = this.props.allContent.walkthroughCount[index]
       }
-      const route = '/entries'
+      const route = `/entries/${tab}`
       return (
         <SubMenu
           key={tab} 
           onTitleClick={() => this.props.selectTab(tab)}
           title={tab + ' ' + '(' + teamTotal + ')'}>
-            <Menu.Item key={tab + '1'}><Link to={route}>{'Process Guides' + ' ' + '(' + processes + ')'}</Link></Menu.Item>
-            <Menu.Item key={tab + '2'}><Link to={route}>{'Walkthroughs' + ' ' +  '(' + walkthroughs + ')'}</Link></Menu.Item>
+            <Menu.Item key={tab+1}><Link to={route + '/process'}>{'Process Guides' + ' ' + '(' + processes + ')'}</Link></Menu.Item>
+            <Menu.Item key={tab+2}><Link to={route + '/walkthrough'}>{'Walkthroughs' + ' ' +  '(' + walkthroughs + ')'}</Link></Menu.Item>
         </SubMenu>
 
       )
@@ -51,7 +51,7 @@ class TabList extends Component {
     this.populateTabs()
   }
   componentWillReceiveProps(nextProps) {
-    this.populateTabs()
+    this.populateTabs(nextProps.tabSelected)
   }
   onOpenChange = (openKeys) => {
     this.props.clearDisplay()
@@ -73,7 +73,7 @@ class TabList extends Component {
         inlineIndent = "15"
         openKeys={this.state.openKeys}
         onOpenChange={this.onOpenChange}
-        onClick={(key) => this.props.getEntries(this.props.tabSelected, key)}>
+        onClick={(key) => this.props.getEntries(this.props.tabSelected, key.key)}>
         { this.state.tabItems }
       </Menu>
     )
