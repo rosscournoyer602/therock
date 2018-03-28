@@ -26,7 +26,7 @@ class Dashboard extends Component {
       console.log('ENTRIES')
       let tab = this.props.location.pathname.split('/')[2]
       let key
-      this.props.location.pathname.split('/')[3] == 'process' ? key = 1 : key = 2
+      this.props.location.pathname.split('/')[3] == 'process' ? key = tab + 1 : key = tab + 2
       this.props.getEntries(tab, key)
 
     }

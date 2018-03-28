@@ -71,15 +71,16 @@ function* authenticateSaga(action) {
 }
 
 function* getEntriesSaga(action) {
-    let contentType = '';
-    if (action.contentType == 1) { contentType = 'process' }
-    if (action.contentType == 2) { contentType = 'walkthrough' }
+    console.log(action.contentType)
+    let contentType = ''
+    if (action.contentType.includes('1')) { contentType = 'process' }
+    if (action.contentType.includes('2')) { contentType = 'walkthrough' }
     const searchObject = {
         'content_type': contentType,
         'fields.team': action.tabName
     };
     console.log(searchObject)
-    const entries = yield client.getEntries(searchObject);
+    const entries = yield client.getEntries(searchObject)
     //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
       return {

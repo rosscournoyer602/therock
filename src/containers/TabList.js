@@ -38,8 +38,8 @@ class TabList extends Component {
           key={tab} 
           onTitleClick={() => this.props.selectTab(tab)}
           title={tab + ' ' + '(' + teamTotal + ')'}>
-            <Menu.Item key={1}><Link to={route + '/process'}>{'Process Guides' + ' ' + '(' + processes + ')'}</Link></Menu.Item>
-            <Menu.Item key={2}><Link to={route + '/walkthrough'}>{'Walkthroughs' + ' ' +  '(' + walkthroughs + ')'}</Link></Menu.Item>
+            <Menu.Item key={tab+1}><Link to={route + '/process'}>{'Process Guides' + ' ' + '(' + processes + ')'}</Link></Menu.Item>
+            <Menu.Item key={tab+2}><Link to={route + '/walkthrough'}>{'Walkthroughs' + ' ' +  '(' + walkthroughs + ')'}</Link></Menu.Item>
         </SubMenu>
 
       )
