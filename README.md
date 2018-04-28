@@ -7,11 +7,14 @@ By default the app will connect to a public test space. You can try it out and s
 How to set up your own:
 
 1. Need to get on contentful.com, create a free account, and create an new space.
-    [photo]
-2. Go to space settings and get space ID
-    [photo]
-3. Generate a management-api token and a content delivery token
-    [photo]
+2. Go to space settings and get space ID under Space Settings > General Settings
+
+<a href="http://s1114.photobucket.com/user/KidPresentable602/media/getSpaceID.png.html" target="_blank"><img src="http://i1114.photobucket.com/albums/k532/KidPresentable602/getSpaceID.png" border="0" alt=" photo getSpaceID.png"/></a>
+
+3. Generate a management-api token and a content delivery token under Space Settings > API Keys
+
+<a href="http://s1114.photobucket.com/user/KidPresentable602/media/apiTokens.png.html" target="_blank"><img src="http://i1114.photobucket.com/albums/k532/KidPresentable602/apiTokens.png" border="0" alt="kbapikey photo apiTokens.png"/></a>
+
 4. Clone into the repo and run npm install in the directory
 5. Install contentful cli tools
     npm install -g contentful-cli
@@ -22,4 +25,5 @@ How to set up your own:
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
 
