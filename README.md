@@ -12,13 +12,13 @@ How to set up your own:
     [photo]
 3. Generate a management-api token and a content delivery token
     [photo]
-4. Clone into the repo
-5. Install contentful cli
+4. Clone into the repo and run npm install in the directory
+5. Install contentful cli tools
     npm install -g contentful-cli
 6. Add the your spaceid and managment token to spaceconfig.json, replacing the square brackets.
 7. Run the command:
     contentful-import --config spaceconfig.json
-8. You're almost done. Now go into the .env file in the main app directory and change the credentials to match yours.
+8. You're almost done. Now go into the .env file in the main app directory and change the credentials to match yours. Now you're ready to rock!
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
