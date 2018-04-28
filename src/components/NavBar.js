@@ -27,7 +27,7 @@ export default class Navbar extends Component {
         flexDirection="row"
         justifyContent="space-between">
         <div> 
-          <Link to="/"><img width="220px" src={require("../logoWhite.png")} alt="" /></Link>
+          <Link to="/"><img width="220px" src={require("../therock.png")} alt="" /></Link>
         </div>
         <div>
           <Menu className="menuText" selectable={false} theme="dark" mode="horizontal" style={style}>
