@@ -1,7 +1,5 @@
 Description: A Knowledge Base site that that allows users to read/create/delete two types of content: a process guide and a video walkthrough. Each type of content will belong to a specific business unit of a company. The data models are defined using Contentful, and content will be managed using Contentful's API.
 
-By default this app will use a public contentful space shared with anyone who clones into it. This will allow people to see the functionality of the app and check out a generic version of it. There is some work needed to set up your own, described below.
-
 By default the app will connect to a public test space. You can try it out and see how it works. With a little config, you can set up your own contentful back-end.
 
 How to set up your own:
