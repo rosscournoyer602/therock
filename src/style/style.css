@@ -38,6 +38,50 @@
     src: url("../fonts/Montserrat-SemiBoldItalic.otf") format("opentype");
 }
 
+/* IT BEGINS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+/* LANDING */
+.signin-form {
+    margin:auto auto;
+    width: 300px;
+    /* transform: translate(-50%, -50%); */
+}
+
+/*        */
+/* HEADER */
+/*        */
+
+/* NAV BAR */
+
+.top-menu {
+    margin-right: 24px;
+    padding: 0;
+}
+
+.brand-img {
+    float:left;
+}
+
+.sign-out-btn {
+    background: none;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.sign-out-btn:focus {
+    outline: none;
+}
+
 .processFieldTitle {
     font-family: "Montserrat-Black";
     font-size: 32px;

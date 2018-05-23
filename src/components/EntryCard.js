@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from 'antd'
 import { Link } from 'react-router-dom'
-import style from './style.css'
+// import style from './style.css'
 
 function entryCard(props) {
     const cardRoute = `/entry/${props.type}/${props.id}`

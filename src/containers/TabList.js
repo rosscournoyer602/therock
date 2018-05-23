@@ -9,7 +9,7 @@ import getAllContent from '../actions/getAllContent'
 import { Link, withRouter } from 'react-router-dom';
 import { Menu } from 'antd'
 import 'antd/dist/antd.css'
-import style from './style.css'
+// import style from './style.css'
 const SubMenu = Menu.SubMenu
 
 //Renders side Menu and the list of teams

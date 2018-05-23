@@ -1,5 +1,5 @@
 import {put, takeEvery, all} from 'redux-saga/effects'
-import * as actionTypes from './actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes'
 import { readAsArrayBuffer } from 'promise-file-reader'
 const axios = require('axios')
 const deliverySDK = require('contentful');
@@ -14,7 +14,7 @@ const managementClient = managementSDK.createClient({
     accessToken: process.env.REACT_APP_PUBLISH_TOKEN
   });
 
-  //async calls
+//async calls
 function* getEntrySaga(action) {
     const entry = yield client.getEntry(action.id);
     let entryFields = {}
@@ -59,19 +59,7 @@ function* getEntrySaga(action) {
     yield put({type: actionTypes.DISPLAY_ENTRY, payload: entryFields})
 }
 
-function* authenticateSaga(action) {
-    const query = {
-        'fields.title': action.payload,
-        'fields.valid': 'true',
-        'content_type': 'password'
-    }
-    const passwordCheck = yield client.getEntries(query)
-    const result = passwordCheck.items.length > 0
-    yield put ({type: actionTypes.CHECK_AUTH, payload: result});
-}
-
 function* getEntriesSaga(action) {
-    console.log(action.contentType)
     let contentType = ''
     if (action.contentType.includes('1')) { contentType = 'process' }
     if (action.contentType.includes('2')) { contentType = 'walkthrough' }
@@ -79,7 +67,6 @@ function* getEntriesSaga(action) {
         'content_type': contentType,
         'fields.team': action.tabName
     };
-    console.log(searchObject)
     const entries = yield client.getEntries(searchObject)
     //parse what comes back into EntryCard consumable items
     const entryTitles = entries.items.map((entry) => {
@@ -168,7 +155,6 @@ function* createUploadSaga(action) {
     })
     console.log('uploading...')
     const upload = yield instance.post(``, fileStream)
-    console.log(upload)
     const space = yield managementClient.getSpace()
     // // const upload = yield space.createUpload({
     // //     file: fileStream,
@@ -240,7 +226,6 @@ function* createEntrySaga(action) {
             return { sys: {type: "Link", linkType: "Asset", id: asset.sys.id}}
           })
           }
-          console.log(assets)
           fields = {
             title: {
                 "en-US": action.payload.title
@@ -286,6 +271,10 @@ function* deleteEntrySaga(action) {
     yield put({type: actionTypes.CLEAR_DISPLAY})
 }
 
+function* tryAuthSaga(action) {
+    yield put({ type: actionTypes.AUTH_USER })
+}
+
 //watch for actions
 function* watchGetEntrySaga() {
     yield takeEvery(actionTypes.GET_ENTRY, getEntrySaga);
@@ -315,8 +304,8 @@ function* watchGetAllContentSaga() {
     yield takeEvery(actionTypes.GET_ALL_CONTENT, getAllContentSaga)
 }
 
-function* watchAuthenticateSaga() {
-    yield takeEvery(actionTypes.TRY_LOGIN, authenticateSaga)
+function* watchTryAuthSaga() {
+    yield takeEvery(actionTypes.TRY_AUTH, tryAuthSaga)
 }
 
 export default function* rootSaga() {
@@ -328,6 +317,6 @@ export default function* rootSaga() {
         watchCreateUploadSaga(),
         watchDeleteEntrySaga(),
         watchGetAllContentSaga(),
-        watchAuthenticateSaga()
+        watchTryAuthSaga()
     ])
 }

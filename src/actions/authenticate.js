@@ -1,10 +1,14 @@
-import { TRY_LOGIN } from './actionTypes'
+import { TRY_AUTH } from './actionTypes'
 
-const tryLogin = (password) => {
+const tryAuth = (email, password) => {
+    console.log('TRY_AUTH' + ' ' + email + ' ' + password);
     return {
-        type: TRY_LOGIN,
-        payload: password
+        type: TRY_AUTH,
+        payload: { 
+            email, 
+            password
+        }
     }
 }
 
-export default tryLogin
+export default tryAuth;

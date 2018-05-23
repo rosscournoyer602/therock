@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import createEntry from '../actions/createEntry'
 import createUpload from '../actions/createUpload'
 import { withRouter } from 'react-router'
-import style from './style.css'
+// import style from './style.css'
 const Option = Select.Option;
 const { TextArea } = Input
 const FormItem = Form.Item
@@ -34,7 +34,6 @@ class Create extends Component {
     return true
   }
   normFile = (e) => {
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }

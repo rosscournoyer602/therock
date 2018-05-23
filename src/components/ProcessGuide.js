@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import UpdaterDeleter from '../containers/UpdaterDeleter'
 import { Card, Col, Row } from 'antd'
 import { Link } from 'react-router-dom'
-import style from './style.css'
+// import style from './style.css'
 
 function ProcessGuide(props) {
 

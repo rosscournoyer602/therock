@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { Spin } from 'antd'
 
-const style = './style.css'
+// const style = './style.css'
 
 class NoResults extends Component {
     constructor(props){

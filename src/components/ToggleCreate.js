@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Radio } from 'antd'
 import CreateProcess from '../containers/CreateProcess'
 import CreateWalkthrough from '../containers/CreateWalkthrough'
-import style from './style.css'
+// import style from './style.css'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 

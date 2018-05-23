@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { withRouter } from 'react-router'
-import tryLogin from '../actions/authenticate'
-import style from './style.css'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import authUser from '../actions/authUser';
+// import style from './style.css';
 
 const FormItem = Form.Item;
 
@@ -23,7 +23,7 @@ class Login extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.tryLogin(values.password)
+        this.props.tryLogin(values.password);
       }
     });
   }
@@ -32,21 +32,21 @@ class Login extends Component {
     render() {
       const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
 
-      // const userNameError = isFieldTouched('userName') && getFieldError('userName')
-      const passwordError = isFieldTouched('password') && getFieldError('password')
+      const userNameError = isFieldTouched('userName') && getFieldError('userName');
+      const passwordError = isFieldTouched('password') && getFieldError('password');
 
         return (
             <Form layout="inline" onSubmit={this.handleSubmit}>
-              {/* <FormItem
+              <FormItem
                 validateStatus={userNameError ? 'error' : ''}
                 help={userNameError || ''}
               >
-                {getFieldDecorator('userName', {
+                {getFieldDecorator('email', {
                   rules: [{ required: true, message: 'Please input your username!' }],
                 })(
-                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="learningleaders" />
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="user@learningleaders.com" />
                 )}
-              </FormItem> */}
+              </FormItem>
               <FormItem
                 validateStatus={passwordError ? 'error' : ''}
                 help={passwordError || ''}
@@ -57,13 +57,23 @@ class Login extends Component {
                   <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                 )}
               </FormItem>
+              <FormItem
+                validateStatus={passwordError ? 'error' : ''}
+                help={passwordError || ''}
+              >
+                {getFieldDecorator('passwordConfirm', {
+                  rules: [{ required: true, message: 'Please re-input password!' }],
+                })(
+                  <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Confirm Password!" />
+                )}
+              </FormItem>
               <FormItem>
                 <Button
                   type="primary"
                   htmlType="submit"
                   disabled={hasErrors(getFieldsError())}
                 >
-                  Log in
+                  Sign up
                 </Button>
               </FormItem>
             </Form>
@@ -79,7 +89,7 @@ class Login extends Component {
 // }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { tryLogin }, dispatch)
+  return bindActionCreators( {  }, dispatch)
 }
 
 const WrappedHorizontalLoginForm = Form.create()(Login);
