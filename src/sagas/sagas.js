@@ -272,7 +272,18 @@ function* deleteEntrySaga(action) {
 }
 
 function* tryAuthSaga(action) {
-    yield put({ type: actionTypes.AUTH_USER })
+    const ROOT_URL = 'http://localhost:3090';
+    const endpoint = action.type === 'SIGNUP_USER' ? '/signup' : '/signin';
+    const requestBody = { email: action.payload.email, password: action.payload.password};
+    const loginAttempt = yield axios.post(`${ROOT_URL}${endpoint}`, requestBody).catch(error => ({error}))
+    console.log(loginAttempt);
+    if (loginAttempt.data) {
+        localStorage.setItem('token', loginAttempt.data.token);
+        yield put({ type: actionTypes.AUTH_USER });
+    }
+    if (loginAttempt.error) {
+        yield put({ type: actionTypes.AUTH_ERROR, payload: loginAttempt.error.response.data });
+    }
 }
 
 //watch for actions
@@ -308,6 +319,10 @@ function* watchTryAuthSaga() {
     yield takeEvery(actionTypes.TRY_AUTH, tryAuthSaga)
 }
 
+function* watchSignupUserSaga() {
+    yield takeEvery(actionTypes.SIGNUP_USER, tryAuthSaga)
+}
+
 export default function* rootSaga() {
     yield all([
         watchGetEntriesSaga(),
@@ -317,6 +332,7 @@ export default function* rootSaga() {
         watchCreateUploadSaga(),
         watchDeleteEntrySaga(),
         watchGetAllContentSaga(),
-        watchTryAuthSaga()
+        watchTryAuthSaga(),
+        watchSignupUserSaga()
     ])
 }

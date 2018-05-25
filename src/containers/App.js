@@ -20,21 +20,21 @@ class App extends Component {
 
   render() {
     return (
-        <Layout className="mainLayout" style={{ "minHeight": "800px", height: "auto"}}>
-          <Header className="Header" style={{padding:0}}>
-            <Navbar logout={this.props.unauthUser}/>
-          </Header>
-          <Layout>
-            <Sider width={160} style={{ background: '#fff' }}>
-              <TabList />
-            </Sider>
-            <Layout style={{ padding: '24px 24px 24px' }}>
-              <Content className="entryContent">
-                <Dashboard />
-              </Content>
-            </Layout>
+      <Layout className="mainLayout" style={{ "minHeight": "800px", height: "auto"}}>
+        <Header className="Header" style={{padding:0}}>
+          <Navbar logout={this.props.unauthUser}/>
+        </Header>
+        <Layout>
+          <Sider width={160} style={{ background: '#fff' }}>
+            <TabList />
+          </Sider>
+          <Layout style={{ padding: '24px 24px 24px' }}>
+            <Content className="entryContent">
+              <Dashboard />
+            </Content>
           </Layout>
         </Layout>
+      </Layout>
     );
   }
 }

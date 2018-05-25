@@ -1,12 +1,13 @@
-import { combineReducers } from 'redux'
-import tabSelected from './tabSelected'
-import contentDisplayed from './contentDisplayed'
-import entriesDisplayed from './entriesDisplayed'
-import searchDisplayed from './searchDisplayed'
-import uploadsQueued from './uploadsQueued'
-import allContent from './allContent'
-import authStatus from './authenticated'
-import tabs from './tabs'
+import { combineReducers } from 'redux';
+import tabSelected from './tabSelected';
+import contentDisplayed from './contentDisplayed';
+import entriesDisplayed from './entriesDisplayed';
+import searchDisplayed from './searchDisplayed';
+import uploadsQueued from './uploadsQueued';
+import allContent from './allContent';
+import authStatus from './authenticated';
+import authErrors from './authErrors';
+import tabs from './tabs';
 
 const rootReducer = combineReducers({
     tabSelected,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     uploadsQueued,
     allContent,
     tabs,
-    authStatus
-})
+    authStatus,
+    authErrors
+});
 
-export default rootReducer
+export default rootReducer;

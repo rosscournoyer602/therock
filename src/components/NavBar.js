@@ -24,18 +24,18 @@ class Navbar extends Component {
             <Link className="brand-img" to="/"><img width="220px" src={require("../therock.png")} alt="" /></Link>
           </div>
           <div className="col-6">
-            <Menu className="col menuText" selectable={false} theme="dark" mode="horizontal" style={style}>
-              <Menu.Item>
+            <Menu className="top-menu-nav menuText" selectable={false} theme="dark" mode="horizontal" style={style}>
+              <Menu.Item className="top-nav-item">
                 <Link to="/add">
                 Add Content
                 </Link>
               </Menu.Item>
-              <Menu.Item>
+              <Menu.Item className="top-nav-item">
                 <Link to="/about">
                   About
                 </Link>
                 </Menu.Item>
-              <Menu.Item onClick={() => console.log('click')}>
+              <Menu.Item className="top-nav-item" onClick={() => console.log('click')}>
                 <button className="sign-out-btn"type="primary" onClick={this.signout}>Sign out</button>
               </Menu.Item>
             </Menu>

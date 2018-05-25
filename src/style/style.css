@@ -67,6 +67,10 @@ html, body {
     padding: 0;
 }
 
+.top-nav-item {
+    float: right !important;
+}
+
 .brand-img {
     float:left;
 }
